@@ -29,3 +29,19 @@ export {
   Spotlight,
   type SpotlightProps,
 } from './cursor';
+
+// Text Components
+export { SplitText, type SplitTextProps } from './text';
+
+// Interactive Components
+export {
+  Impulse,
+  type ImpulseProps,
+  Sequence,
+  SequenceContainer,
+  type SequenceProps,
+  type SequenceContainerProps,
+} from './interactive';
+
+// Form Components
+export { FormField, type FormFieldProps } from './form';
