@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StringTune : Tutorial : Cursor</title>
+    <style>
+@property --progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-angle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-distance {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --vh: 1vh;
+  --vw: 1vw;
+  --c-white: #ffffff;
+  --c-black: #000000;
+  --c-grey-dark: #333333;
+  --c-grey-dark-rgba: 51, 51, 51;
+  --c-grey: #999999;
+  --c-red: #FF5A37;
+
+  --easing-function: cubic-bezier(0.86, 0, 0.31, 1);
+  --easing-function-2: cubic-bezier(0.35, 0.35, 0, 1);
+  --easing-timing: 1.5s;
+
+  --g-gap: 0.4rem;
+  --g-margin: calc(var(--g-gap) * 2);
+
+  --mm: 0.64rem;
+  --m: 0.8rem;
+  --p: 1rem;
+  --h6: 1.25rem;
+  --h5: 1.563rem;
+  --h4: 1.953rem;
+  --h3: 2.441rem;
+  --h2: 3.052rem;
+  --h1: 3.815rem;
+  --h0: 5.065rem;
+  --large: max(6.331rem, 18vw);
+  
+}
+@media (min-width: 1024px) {
+  :root {
+    --g-margin: calc(var(--g-gap) * 4);
+  }
+}
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #808080;
+  color: black;
+}
+.-w {
+  margin-left: var(--g-margin);
+  margin-right: var(--g-margin);
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+body {
+  min-height: 100lvh;
+}
+.note {
+  color: var(--c-white);
+}
+svg {
+  display: block;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1,
+h2,
+h3,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+}
+.-lrg {
+  font-size: var(--large);
+}
+.-h0 {
+  font-size: var(--h0);
+}
+h1, .-h1 {
+  font-size: var(--h1);
+}
+h2, .-h2 {
+  font-size: var(--h2);
+}
+h3, .-h3 {
+  font-size: var(--h3);
+}
+h4, .-h4 {
+  font-size: var(--h4);
+}
+h5, .-h5 {
+  font-size: var(--h5);
+}
+h6, .-h6 {
+  font-size: var(--h6);
+}
+.-p {
+  font-size: var(--p);
+}
+.-m {
+  font-size: var(--m);
+}
+.-mm {
+  font-size: var(--mm);
+}
+@media (max-width: 1600px) {
+  .-mid-lrg {
+    font-size: var(--large);
+  }
+  .-mid-h0 {
+    font-size: var(--h0);
+  }
+  .-mid-h1 {
+    font-size: var(--h1);
+  }
+  .-mid-h2 {
+    font-size: var(--h2);
+  }
+  .-mid-h3 {
+    font-size: var(--h3);
+  }
+  .-mid-h4 {
+    font-size: var(--h4);
+  }
+  .-mid-h5 {
+    font-size: var(--h5);
+  }
+  .-mid-h6 {
+    font-size: var(--h6);
+  }
+  .-mid-p {
+    font-size: var(--p);
+  }
+  .-mid-m {
+    font-size: var(--m);
+  }
+  .-mid-mm {
+    font-size: var(--mm);
+  }
+}
+
+@media (max-width: 1024px) {
+  .-m-lrg {
+    font-size: var(--large);
+  }
+  .-m-h0 {
+    font-size: var(--h0);
+  }
+  .-m-h1 {
+    font-size: var(--h1);
+  }
+  .-m-h2 {
+    font-size: var(--h2);
+  }
+  .-m-h3 {
+    font-size: var(--h3);
+  }
+  .-m-h4 {
+    font-size: var(--h4);
+  }
+  .-m-h5 {
+    font-size: var(--h5);
+  }
+  .-m-h6 {
+    font-size: var(--h6);
+  }
+  .-m-p {
+    font-size: var(--p);
+  }
+  .-m-m {
+    font-size: var(--m);
+  }
+  .-m-mm {
+    font-size: var(--mm);
+  }
+}
+
+.-up {
+  text-transform: uppercase;
+}
+.-tac {
+  text-align: center;
+}
+
+.-splitted {
+  display: flex;
+  flex-wrap: wrap;
+
+  .-s-line {
+    display: flex;
+    will-change: contents;
+  }
+  .-s-word {
+    display: inline-flex;
+    will-change: contents;
+  }
+  .-s-char {
+    display: inline-flex;
+    will-change: contents;
+  }
+}
+
+.-w {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: 1fr auto auto auto auto 1fr;
+  align-items: center;
+  /* column-gap: var(--g-gap); */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.-w .cross {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .-w {
+    grid-template-rows: 2fr 1fr auto auto 1fr 2fr;
+  }
+  .-w .cross {
+    grid-column-start: 3;
+    grid-column-end: 13;
+    grid-row-start: 2;
+    grid-row-end: 6;
+    justify-self: stretch;
+    align-self: stretch;
+    display: block;
+    background-image: linear-gradient(
+        to right,
+        transparent 50%,
+        rgba(var(--c-grey-dark-rgb), 0.4) calc(50% + 1px),
+        transparent calc(50% + 1px)
+      ),
+      linear-gradient(to top, transparent 50%, rgba(var(--c-grey-dark-rgb), 0.4) calc(50% + 1px), transparent calc(50% + 1px));
+    background-repeat: no-repeat;
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--g-gap);
+  padding: var(--g-gap) 0;
+  cursor: default;
+  position: relative;
+}
+.item figure {
+  flex-shrink: 0;
+  width: var(--h3);
+  border-radius: var(--g-gap);
+  overflow: hidden;
+}
+.-l,
+.-r {
+  grid-column-start: 1;
+  grid-column-end: 15;
+}
+
+@media (min-width: 1024px) {
+  .-l {
+    grid-column-start: 3;
+    grid-column-end: 8;
+  }
+  .-r {
+    grid-column-start: 8;
+    grid-column-end: 13;
+  }
+  .water,
+  .earth {
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+  .air,
+  .fire {
+    grid-row-start: 4;
+    grid-row-end: 5;
+  }
+
+  .item {
+    padding: var(--p) calc(var(--g-gap) / 2);
+  }
+  .item::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--g-gap) / 2);
+
+    background-color: rgba(var(--c-grey-dark-rgb), 0.2);
+    border-radius: var(--g-gap);
+
+    opacity: 0;
+    scale: 0.5;
+    transition:
+      opacity 0.3s var(--easing-function),
+      scale 0.3s var(--easing-function);
+  }
+  .item:hover::before {
+    opacity: 1;
+    scale: 1;
+    transition:
+      opacity 0.6s var(--easing-function-2),
+      scale 0.6s var(--easing-function-2);
+  }
+  .item figure {
+    opacity: 1;
+    scale: 1;
+    transition:
+      opacity 0.6s var(--easing-function-2),
+      scale 0.6s var(--easing-function-2);
+  }
+  .-w:has(.item:hover) .item figure {
+    scale: 0.5;
+  }
+  .-w .item:hover figure {
+    scale: 0.25 !important;
+    opacity: 0;
+    transition:
+      opacity 0.3s var(--easing-function),
+      scale 0.3s var(--easing-function);
+  }
+  .-w:has(.item:hover) .item span {
+    color: var(--c-grey-dark);
+  }
+  .item:hover span {
+    color: var(--c-white) !important;
+  }
+}
+
+.tutorial-cursor,
+.tutorial-cursor-echo {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .tutorial-cursor-echo {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    display: block;
+    width: var(--g-gap);
+    height: var(--g-gap);
+    border-radius: 50%;
+    background-color: var(--c-grey-dark);
+    transform: translate3d(calc(var(--x) * 1px + 0.5rem), calc(var(--y) * 1px + 0.75rem), 0);
+    will-change: transform;
+  }
+  .tutorial-cursor {
+    display: grid;
+    place-items: center;
+
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    margin-left: 1rem;
+    margin-top: 1.5rem;
+    transform: translate3d(calc(var(--x) * 1px + 1rem), calc(var(--y) * 1px + 1.5rem), 0) rotate(calc(var(--x-lerp) * 0.5deg));
+    will-change: transform;
+  }
+  .tutorial-cursor figure {
+    grid-area: 1 / 1;
+    border-radius: var(--g-gap);
+    overflow: hidden;
+    width: 12rem;
+    opacity: 0;
+    scale: 0.5;
+    translate: 0 25%;
+    transition:
+      opacity 0.3s var(--easing-function),
+      scale 0.3s var(--easing-function),
+      translate 0.3s var(--easing-function);
+    will-change: opacity, scale, translate;
+  }
+  .tutorial-cursor.-target-1 .image-1,
+  .tutorial-cursor.-target-2 .image-2,
+  .tutorial-cursor.-target-3 .image-3,
+  .tutorial-cursor.-target-4 .image-4 {
+    z-index: 101;
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+    transition:
+      opacity 0s var(--easing-function-2),
+      scale 0.6s var(--easing-function-2),
+      translate 0.6s var(--easing-function-2);
+  }
+}
+
+.-w .note {
+  grid-column-start: 1;
+  grid-column-end: 15;
+  grid-row-start: 1;
+  justify-self: center;
+  align-self: start;
+  text-align: center;
+  z-index: 40;
+  margin-top: var(--h0);
+  background-color: var(--c-black);
+}
+</style>
+</head>
+
+  <body>
+    <div class="-w">
+  <span class="cross"></span>
+  <div class="item water -l" string="cursor" string-cursor-class="-target-1" string-cursor-target-style-disable>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <span class="-h3">Water</span>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+  </div>
+  <div class="item earth -r" string="cursor" string-cursor-class="-target-2" string-cursor-target-style-disable>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <span class="-h3">Earth</span>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+  </div>
+  <div class="item air -l" string="cursor" string-cursor-class="-target-3" string-cursor-target-style-disable>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <span class="-h3">Air</span>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+  </div>
+
+  <div class="item fire -r" string="cursor" string-cursor-class="-target-4" string-cursor-target-style-disable>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <span class="-h3">Fire</span>
+    <figure>
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+  </div>
+
+
+  <span class="note -mm -up -tac">(Disabled on mobile devices)</span>
+
+  <div class="tutorial-cursor" string-cursor string-cursor-lerp="0.75">
+    <figure class="image-1">
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <figure class="image-2">
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <figure class="image-3">
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+    <figure class="image-4">
+      <img string="lazy" string-lazy="https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg" alt="StringTune">
+    </figure>
+  </div>
+
+  <div class="tutorial-cursor-echo" string-cursor string-cursor-lerp=".6"></div>
+  <div class="tutorial-cursor-echo" string-cursor string-cursor-lerp=".85"></div>
+  <div class="tutorial-cursor-echo" string-cursor string-cursor-lerp=".95"></div>
+</div>
+  </body>
+</html>
+<script src="https://unpkg.com/@fiddle-digital/string-tune@1.1.45/dist/index.js"></script>
+<script>
+  const stringTune = StringTune.StringTune.getInstance();
+  window.StringTuneContext = stringTune;
+    stringTune.use(StringTune.StringLazy);
+  stringTune.use(StringTune.StringCursor);
+
+  stringTune.start(0);
+</script>
+</body>
+
+</html>
