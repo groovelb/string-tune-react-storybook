@@ -15,9 +15,6 @@ import './string-tune.css';
 const TextProgressRecipe = ({
   enterVp = 'top',
   exitVp = 'bottom',
-}: {
-  enterVp?: 'top' | 'center' | 'bottom';
-  exitVp?: 'top' | 'center' | 'bottom';
 }) => (
   <div className="text-progress-demo-wrapper">
     <ScrollProgress enterVp={enterVp} exitVp={exitVp} className="-w">
