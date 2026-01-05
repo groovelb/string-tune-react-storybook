@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+
+:root {
+  --aether-blue: #0000FF;
+  --aether-black: #000000;
+  --aether-white: #FFFFFF;
+  --aether-grid: 2px solid var(--aether-black);
+  --aether-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Pretendard Variable', sans-serif;
+}
+
+body.aether-page {
+  background-color: var(--aether-white);
+  color: var(--aether-black);
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.brutalist-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: var(--aether-grid);
+  border-right: var(--aether-grid);
+}
+
+/* Container with inner padding - use this class when content needs spacing from borders */
+.brutalist-container-padded {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.brutalist-section {
+  padding: 100px 40px;
+  border-bottom: var(--aether-grid);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section labels - proper spacing from vertical borders */
+.brutalist-section-label {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding-left: 20px; /* Extra space from vertical line */
+}
+
+.brutalist-section-label-line {
+  width: 40px;
+  height: 2px;
+  background-color: var(--aether-blue);
+  flex-shrink: 0;
+}
+
+.brutalist-section-label-text {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--aether-black);
+}
+
+@media (max-width: 1024px) {
+  .brutalist-container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .brutalist-section-label {
+    padding-left: 10px;
+  }
+}
+
+.brutalist-heading {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(4rem, 10vw, 12rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: -0.05em;
+}
+
+.brutalist-subheading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.brutalist-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.aether-btn {
+  display: inline-block;
+  padding: 20px 40px;
+  background-color: var(--aether-blue);
+  color: var(--aether-white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: var(--aether-grid);
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.aether-btn:hover {
+  background-color: var(--aether-black);
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0 var(--aether-blue);
+}
+
+/* StringTune specific overrides for Aether */
+.-inview .reveal-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}

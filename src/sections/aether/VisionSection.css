@@ -1,0 +1,114 @@
+/* VisionSection - Simple reveal animation */
+
+.vision-section {
+  background-color: var(--aether-white);
+  padding: 0;
+  min-height: auto;
+}
+
+.vision-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 2px solid var(--aether-black);
+  border-right: 2px solid var(--aether-black);
+  padding: 120px 100px;
+}
+
+/* Section Label */
+.vision-label {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.vision-label-line {
+  width: 40px;
+  height: 2px;
+  background-color: var(--aether-blue);
+  flex-shrink: 0;
+}
+
+.vision-label-text {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--aether-black);
+}
+
+/* Text content */
+.vision-content {
+  max-width: 900px;
+}
+
+.vision-text {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--aether-black);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1em 0.25em;
+}
+
+/* Word animation - staggered reveal */
+.vision-text .-s-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* When parent has -inview class (set by RevealOnScroll) */
+.-inview .vision-text .-s-word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays for words */
+.-inview .vision-text .-s-word:nth-child(1) { transition-delay: 0s; }
+.-inview .vision-text .-s-word:nth-child(2) { transition-delay: 0.02s; }
+.-inview .vision-text .-s-word:nth-child(3) { transition-delay: 0.04s; }
+.-inview .vision-text .-s-word:nth-child(4) { transition-delay: 0.06s; }
+.-inview .vision-text .-s-word:nth-child(5) { transition-delay: 0.08s; }
+.-inview .vision-text .-s-word:nth-child(6) { transition-delay: 0.1s; }
+.-inview .vision-text .-s-word:nth-child(7) { transition-delay: 0.12s; }
+.-inview .vision-text .-s-word:nth-child(8) { transition-delay: 0.14s; }
+.-inview .vision-text .-s-word:nth-child(9) { transition-delay: 0.16s; }
+.-inview .vision-text .-s-word:nth-child(10) { transition-delay: 0.18s; }
+.-inview .vision-text .-s-word:nth-child(n+11) { transition-delay: 0.2s; }
+.-inview .vision-text .-s-word:nth-child(n+16) { transition-delay: 0.25s; }
+.-inview .vision-text .-s-word:nth-child(n+21) { transition-delay: 0.3s; }
+.-inview .vision-text .-s-word:nth-child(n+26) { transition-delay: 0.35s; }
+.-inview .vision-text .-s-word:nth-child(n+31) { transition-delay: 0.4s; }
+.-inview .vision-text .-s-word:nth-child(n+36) { transition-delay: 0.45s; }
+.-inview .vision-text .-s-word:nth-child(n+41) { transition-delay: 0.5s; }
+.-inview .vision-text .-s-word:nth-child(n+46) { transition-delay: 0.55s; }
+.-inview .vision-text .-s-word:nth-child(n+51) { transition-delay: 0.6s; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .vision-container {
+    padding: 80px 40px;
+  }
+
+  .vision-label {
+    margin-bottom: 3rem;
+  }
+
+  .vision-text {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .vision-container {
+    padding: 60px 24px;
+  }
+}

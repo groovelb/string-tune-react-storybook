@@ -6,7 +6,11 @@ import './string-tune.css';
  * Footer Shifting Demo (layouts/tutorial-01)
  *
  * Uses ScrollProgress to create a footer reveal animation
- * where the footer slides up from the bottom based on scroll progress.
+ * where the footer slides up and fades in based on scroll progress.
+ *
+ * Key animation:
+ * - Footer ::after overlay: opacity: calc(1 - var(--progress))
+ * - Footer .-w content: transform: translate3d(0, calc(-50% + 50% * var(--progress)), 0)
  */
 const meta = {
   title: 'StringTune/Layouts/FooterShifting',
@@ -23,7 +27,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     exitVp: {
-      description: 'Viewport position where progress ends',
+      description: 'Viewport position where progress ends (StringTune string-exit-vp)',
       control: { type: 'select' },
       options: ['top', 'center', 'bottom'],
     },
@@ -37,8 +41,8 @@ export const Default = {
     exitVp: 'bottom',
   },
   render: (args) => (
-    <div className="footer-shifting-demo-wrapper">
-      {/* Content Section */}
+    <>
+      {/* Content Section - Black background */}
       <div className="footer-shifting-content">
         <div className="-w">
           <p className="title">
@@ -54,8 +58,10 @@ export const Default = {
         </div>
       </div>
 
-      {/* Footer with ScrollProgress */}
-      <ScrollProgress {...args} as="div" className="footer-shifting-footer">
+      {/* Footer with ScrollProgress - Blue background
+          Only exitVp is passed to match original demo behavior.
+          StringTune will track progress as footer scrolls through viewport. */}
+      <ScrollProgress as="div" className="footer-shifting-footer" exitVp={args.exitVp}>
         <div className="-w">
           <span className="logo">GlowNest</span>
 
@@ -66,13 +72,13 @@ export const Default = {
           </nav>
           <nav className="help">
             <span>FAQs</span>
-            <span>Shipping & Returns</span>
+            <span>Shipping &amp; Returns</span>
             <span>Warranty</span>
             <span>Contact</span>
           </nav>
           <nav className="legal">
             <span>Privacy Policy</span>
-            <span>Terms & Conditions</span>
+            <span>Terms &amp; Conditions</span>
             <span>Cookies</span>
           </nav>
           <nav className="socials">
@@ -88,13 +94,13 @@ export const Default = {
           </div>
         </div>
       </ScrollProgress>
-    </div>
+    </>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          'The footer uses `--progress` CSS variable to animate its position and opacity. The black overlay fades out as progress increases, revealing the blue footer beneath.',
+          'Scroll down to see the footer reveal effect. The black overlay fades out (`opacity: calc(1 - var(--progress))`) while the footer content slides up (`transform: translate3d(0, calc(-50% + 50% * var(--progress)), 0)`).',
       },
     },
   },
