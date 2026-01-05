@@ -4,6 +4,55 @@ StringTune 컴포넌트의 Storybook 스토리 작성 규칙입니다.
 
 ---
 
+## 핵심 규칙: 원본 데모와 동일하게 작성
+
+**모든 Storybook 스토리는 `/src/string-tune-demo/` 폴더의 원본 튜토리얼 예제와 동일하게 작성합니다.**
+
+### 데모 폴더 구조
+```
+src/string-tune-demo/
+├── basic/           # 기본 튜토리얼 (01-16)
+├── advanced/        # 고급 튜토리얼
+├── typography/      # 타이포그래피 튜토리얼
+├── layouts/         # 레이아웃 튜토리얼
+└── specials/        # 특별 튜토리얼
+```
+
+### 매칭 규칙
+| Storybook | 원본 데모 |
+|-----------|----------|
+| `RevealOnScroll.stories.tsx` | `basic/tutorial-01-reveal-on-scroll.html` |
+| `Parallax.stories.tsx` | `basic/tutorial-02-parallax.html` |
+| `ScrollProgress.stories.tsx` | `basic/tutorial-03-progress.html` |
+| `Lerp.stories.tsx` | `basic/tutorial-04-lerp.html` |
+| `Glide.stories.tsx` | `basic/tutorial-05-glide.html` |
+| `CursorFollow.stories.tsx` | `basic/tutorial-06-cursor.html` |
+| `Magnetic.stories.tsx` | `basic/tutorial-07-magnetic.html` |
+| `Spotlight.stories.tsx` | `basic/tutorial-08-spotlight.html` |
+| `Impulse.stories.tsx` | `basic/tutorial-09-impulse.html` |
+| `SplitText.stories.tsx` | `basic/tutorial-10-split.html` |
+| `FormField.stories.tsx` | `basic/tutorial-11~13-form-*.html` |
+| `FPSTracker.stories.tsx` | `basic/tutorial-14-fps-tracker.html` |
+| `PositionTracker.stories.tsx` | `basic/tutorial-15-position-tracker.html` |
+| `Sequence.stories.tsx` | `basic/tutorial-16-sequence.html` |
+| `TextWithProgress.stories.tsx` | `typography/tutorial-01-text-w-progress.html` |
+| `FooterShifting.stories.tsx` | `layouts/tutorial-01-footer-shifting.html` |
+| `XmasTree.stories.tsx` | `specials/tutorial-01-xmas-tree.html` |
+
+### 동일하게 유지할 항목
+1. **HTML 구조** - 원본의 마크업 구조를 React JSX로 변환
+2. **CSS 스타일** - 원본의 스타일을 `string-tune.css`에 그대로 적용
+3. **CSS 변수 활용** - 원본에서 사용하는 `--parallax`, `--progress` 등 동일하게 적용
+4. **그리드 레이아웃** - 14열/28열 그리드 시스템 유지
+5. **이미지/에셋** - 동일한 이미지 URL 사용: `https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg`
+6. **애니메이션** - 원본의 transition, animation 설정 유지
+
+### 참고
+- 전체 데모 목록: `/docs/string-tune-demo-list.md`
+- 원본 데모 확인 후 스토리 작성
+
+---
+
 ## 기본 원칙
 
 ### 1. Autodocs 활성화

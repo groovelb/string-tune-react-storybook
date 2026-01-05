@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StringTune : Tutorial : Text w/ Progress</title>
+    <style>
+@property --progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-angle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-distance {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --vh: 1vh;
+  --vw: 1vw;
+  --c-white: #ffffff;
+  --c-black: #000000;
+  --c-grey-dark: #333333;
+  --c-grey-dark-rgba: 51, 51, 51;
+  --c-grey: #999999;
+  --c-red: #FF5A37;
+
+  --easing-function: cubic-bezier(0.86, 0, 0.31, 1);
+  --easing-function-2: cubic-bezier(0.35, 0.35, 0, 1);
+  --easing-timing: 1.5s;
+
+  --g-gap: 0.4rem;
+  --g-margin: calc(var(--g-gap) * 2);
+
+  --mm: 0.64rem;
+  --m: 0.8rem;
+  --p: 1rem;
+  --h6: 1.25rem;
+  --h5: 1.563rem;
+  --h4: 1.953rem;
+  --h3: 2.441rem;
+  --h2: 3.052rem;
+  --h1: 3.815rem;
+  --h0: 5.065rem;
+  --large: max(6.331rem, 18vw);
+  
+}
+@media (min-width: 1024px) {
+  :root {
+    --g-margin: calc(var(--g-gap) * 4);
+  }
+}
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #808080;
+  color: black;
+}
+.-w {
+  margin-left: var(--g-margin);
+  margin-right: var(--g-margin);
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+body {
+  min-height: 100lvh;
+}
+.note {
+  color: var(--c-white);
+}
+svg {
+  display: block;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1,
+h2,
+h3,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+}
+.-lrg {
+  font-size: var(--large);
+}
+.-h0 {
+  font-size: var(--h0);
+}
+h1, .-h1 {
+  font-size: var(--h1);
+}
+h2, .-h2 {
+  font-size: var(--h2);
+}
+h3, .-h3 {
+  font-size: var(--h3);
+}
+h4, .-h4 {
+  font-size: var(--h4);
+}
+h5, .-h5 {
+  font-size: var(--h5);
+}
+h6, .-h6 {
+  font-size: var(--h6);
+}
+.-p {
+  font-size: var(--p);
+}
+.-m {
+  font-size: var(--m);
+}
+.-mm {
+  font-size: var(--mm);
+}
+@media (max-width: 1600px) {
+  .-mid-lrg {
+    font-size: var(--large);
+  }
+  .-mid-h0 {
+    font-size: var(--h0);
+  }
+  .-mid-h1 {
+    font-size: var(--h1);
+  }
+  .-mid-h2 {
+    font-size: var(--h2);
+  }
+  .-mid-h3 {
+    font-size: var(--h3);
+  }
+  .-mid-h4 {
+    font-size: var(--h4);
+  }
+  .-mid-h5 {
+    font-size: var(--h5);
+  }
+  .-mid-h6 {
+    font-size: var(--h6);
+  }
+  .-mid-p {
+    font-size: var(--p);
+  }
+  .-mid-m {
+    font-size: var(--m);
+  }
+  .-mid-mm {
+    font-size: var(--mm);
+  }
+}
+
+@media (max-width: 1024px) {
+  .-m-lrg {
+    font-size: var(--large);
+  }
+  .-m-h0 {
+    font-size: var(--h0);
+  }
+  .-m-h1 {
+    font-size: var(--h1);
+  }
+  .-m-h2 {
+    font-size: var(--h2);
+  }
+  .-m-h3 {
+    font-size: var(--h3);
+  }
+  .-m-h4 {
+    font-size: var(--h4);
+  }
+  .-m-h5 {
+    font-size: var(--h5);
+  }
+  .-m-h6 {
+    font-size: var(--h6);
+  }
+  .-m-p {
+    font-size: var(--p);
+  }
+  .-m-m {
+    font-size: var(--m);
+  }
+  .-m-mm {
+    font-size: var(--mm);
+  }
+}
+
+.-up {
+  text-transform: uppercase;
+}
+.-tac {
+  text-align: center;
+}
+
+.-splitted {
+  display: flex;
+  flex-wrap: wrap;
+
+  .-s-line {
+    display: flex;
+    will-change: contents;
+  }
+  .-s-word {
+    display: inline-flex;
+    will-change: contents;
+  }
+  .-s-char {
+    display: inline-flex;
+    will-change: contents;
+  }
+}
+
+.-w {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: var(--g-gap);
+
+  position: relative;
+  min-height: calc( var(--vh,1vh) * 800 );
+}
+
+.percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.text {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  align-self: start;
+
+  position: sticky;
+  top: 0;
+  min-height: calc( var(--vh,1vh) * 100 );
+  display: flex;
+  align-items: center;
+}
+.indent {
+  display: inline-flex;
+  width: calc((2 / 6) * (var(--vw, 1vw) * 100 - var(--g-margin) * 2));
+}
+.indent::before {
+  letter-spacing: initial;
+  content: 'Scroll: ' attr(data-val-pct) '%';
+  font-size: var(--m);
+  font-feature-settings: 'ss03', 'ss14';
+}
+.-highlight {
+  color: #a399a8;
+}
+.-s-word {
+  --word-turn: calc( (var(--word-index) - 3) / var(--word-global-total) );
+  --word-step: calc( 1 / var(--word-global-total) );
+  --word-progress: clamp( 0, calc( (var(--progress) - var(--word-turn)) / var(--word-step) ), 1 );
+
+  transform: translate3d(0, calc(100% - var(--word-progress) * 100% ), 0);
+  clip-path: inset(-15% 0 calc( 115% - var(--word-progress) * 130% ) 0);
+}
+
+@media (min-width: 1024px) {
+  .-w {
+    grid-template-columns: repeat(14, 1fr);
+  }
+  .text {
+    grid-column-start: 3;
+    grid-column-end: 13;
+  }
+  .indent {
+    width: calc((2 / 14) * (var(--vw, 1vw) * 100 - var(--g-margin) * 2));
+  }
+  .break {
+    display: block;
+    width: 100%;
+    height: var(--h4);
+  }
+}
+</style>
+</head>
+
+  <body>
+    <div class="-w" string="progress" string-enter-vp="top" string-exit-vp="bottom">
+  <div class="text">
+    <span class="-h4 -m-h5" string="split" string-split="word"><span class="indent" data-val-pct="0"></span><split-class class="-highlight">The weather</split-class> in the UK is a curious experiment designed to test patience rather than provide comfort. It can be raining, sunny, windy, and mildly offensive within the same afternoon. Forecasts exist mostly for entertainment, umbrellas serve as emotional support, and any mention of “summer” should be treated as a bold rumour.</span>
+  </div>
+</div>
+  </body>
+</html>
+<script src="https://unpkg.com/@fiddle-digital/string-tune@1.1.45/dist/index.js"></script>
+<script>
+  const stringTune = StringTune.StringTune.getInstance();
+  window.StringTuneContext = stringTune;
+    stringTune.use(StringTune.StringSplit);
+  stringTune.use(StringTune.StringProgress);
+  stringTune.use(StringTune.StringPositionTracker);
+
+  stringTune.start(0);
+</script>
+</body>
+
+</html>

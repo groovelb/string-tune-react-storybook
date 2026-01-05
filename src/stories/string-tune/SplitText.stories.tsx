@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '텍스트를 문자/단어/줄 단위로 분할하여 개별 애니메이션을 적용합니다. 각 분할 요소에는 `--char-index`, `--word-index`, `--line-index` CSS 변수가 제공됩니다. **스크롤해야 효과를 확인할 수 있습니다.**',
+          '텍스트를 문자/단어/줄 단위로 분할하여 개별 애니메이션을 적용합니다. 각 분할 요소에는 `--char-start`, `--word-start`, `--line-start` CSS 변수가 제공됩니다. **스크롤해야 효과를 확인할 수 있습니다.**',
       },
     },
   },
@@ -36,6 +36,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+
 export const Default: Story = {
   args: {
     split: 'char',
@@ -43,20 +45,37 @@ export const Default: Story = {
   },
   render: () => (
     <div className="split-demo-wrapper">
-      <div className="instruction">
-        Scroll to see split text animation
-      </div>
+      <div className="instruction">Scroll to see split text animation</div>
 
       <div className="scroll-spacer">Scroll Down</div>
 
-      <div className="split-text-container">
-        <SplitText split="char" repeat className="split-text-title">
-          StringTune
+      <div className="split-poster">
+        <figure className="image-bg">
+          <img src={IMAGE_URL} alt="StringTune" />
+        </figure>
+
+        <SplitText split="char" repeat className="title shaping">
+          Shaping
+        </SplitText>
+        <SplitText split="char" repeat className="title distinct">
+          Distinct
+        </SplitText>
+        <SplitText split="char" repeat className="title identity">
+          Identity
+        </SplitText>
+        <SplitText split="char" repeat className="title through">
+          Through
+        </SplitText>
+        <SplitText split="char" repeat className="title form">
+          Form
+        </SplitText>
+        <SplitText split="char" repeat className="title colour">
+          Colour
         </SplitText>
 
-        <SplitText split="word" repeat className="split-text-subtitle">
-          Create stunning animations with simple data attributes and CSS variables
-        </SplitText>
+        <p className="description">
+          Exploring the balance between bold visuals and subtle details, crafting layouts that resonate.
+        </p>
       </div>
 
       <div className="scroll-spacer">End</div>
@@ -66,7 +85,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          '제목은 `char` 단위로 분할되어 각 문자가 순차적으로 나타납니다. 부제목은 `word` 단위로 분할됩니다. `--char-index`와 `--word-index`를 `transition-delay`에 활용하여 stagger 효과를 구현했습니다.',
+          '포스터 스타일 레이아웃에서 각 단어가 `char` 단위로 분할됩니다. `--char-start` CSS 변수를 `transition-delay`에 활용하여 순차적인 reveal 효과를 구현했습니다.',
       },
     },
   },

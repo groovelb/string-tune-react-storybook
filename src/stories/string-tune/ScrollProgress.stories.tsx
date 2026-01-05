@@ -37,8 +37,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const IMAGE_URL =
-  'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
 
 export const Default: Story = {
   args: {
@@ -46,29 +45,23 @@ export const Default: Story = {
     exitVp: 'bottom',
   },
   render: (args) => (
-    <div className="scroll-demo-wrapper" style={{ minHeight: '400vh' }}>
-      <div className="instruction">
-        Scroll to see progress (0 → 1)
-      </div>
+    <ScrollProgress {...args} className="progress-demo-wrapper">
+      <p>Drawing was a language of thought — a way to understand motion, balance, and harmony.</p>
 
-      <div className="scroll-spacer">Scroll Down</div>
+      <figure className="image-1">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </figure>
 
-      <ScrollProgress {...args} className="progress-section">
-        <div className="progress-sticky">
-          <figure className="progress-card">
-            <img src={IMAGE_URL} alt="Progress demo" />
-          </figure>
-        </div>
-      </ScrollProgress>
+      <span className="line"></span>
 
-      <div className="scroll-spacer">End</div>
-    </div>
+      <h1 className="title">Balance</h1>
+    </ScrollProgress>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '`--progress` CSS 변수는 0에서 1로 변화합니다. scale, opacity, clip-path 등에 활용하여 스크롤 기반 애니메이션을 구현하세요.',
+          '"Balance" 타이틀과 함께 이미지가 스크롤에 따라 scale과 clip-path가 변화합니다. `--progress` CSS 변수가 0에서 1로 변화하며 애니메이션을 구동합니다.',
       },
     },
   },

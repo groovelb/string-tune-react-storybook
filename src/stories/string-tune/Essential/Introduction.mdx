@@ -1,0 +1,113 @@
+{/* Essential/Introduction.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Essential/Introduction" />
+
+# StringTune
+
+> DOM 속성 기반의 고성능 모듈러 애니메이션 엔진
+
+## 개요
+
+**StringTune**은 [Fiddle.Digital Design Agency](https://fiddle.digital/)에서 개발한 JavaScript 라이브러리입니다.
+HTML 속성을 선택자(selector)로 사용하여 애니메이션과 인터랙션 효과를 선언적으로 적용하는 **효과 엔진**입니다.
+
+### 핵심 특징
+
+| 특징 | 설명 |
+|------|------|
+| **선언적 접근** | HTML 속성과 CSS 변수만으로 애니메이션 제어 |
+| **모듈러 아키텍처** | 필요한 모듈만 선택적으로 사용 |
+| **프레임워크 무관** | React, Vue, Angular, 순수 HTML 모두 지원 |
+| **고성능** | 레이아웃 시프트와 리페인트 최소화 |
+
+---
+
+## 라이브러리 성격
+
+StringTune은 **UI 컴포넌트 라이브러리가 아닙니다**.
+
+| 제공함 | 제공하지 않음 |
+|--------|--------------|
+| 패럴랙스 **효과** | `<Button>` 컴포넌트 |
+| 스크롤 진행률 **계산** | `<Card>` 컴포넌트 |
+| 마그네틱 **인터랙션** | `useParallax()` 훅 |
+| CSS 변수 자동 주입 | 스타일링된 UI |
+
+---
+
+## 작동 원리
+
+```
+1. HTML에 속성 선언
+   <div string="parallax">...</div>
+              │
+              ▼
+2. StringTune 엔진 시작
+   StringTune.getInstance().start(60)
+              │
+              ▼
+3. 엔진이 DOM 스캔 (속성 = 선택자)
+   querySelectorAll('[string]')
+              │
+              ▼
+4. CSS 변수 주입 & 매 프레임 업데이트
+   --progress, --parallax, --magnetic-x ...
+```
+
+### 속성 기반 설정
+
+```html
+<div
+  string="parallax"           <!-- 선택자: "parallax 효과 적용" -->
+  string-parallax="0.5"       <!-- 설정: "강도 0.5" -->
+  string-id="hero"            <!-- 식별자: 이벤트 구독용 -->
+>
+  콘텐츠
+</div>
+```
+
+### CSS 변수 활용
+
+```css
+.element {
+  opacity: var(--progress);
+  transform: translateY(calc(var(--parallax) * 1px));
+  scale: calc(0.5 + var(--progress) * 0.5);
+}
+```
+
+---
+
+## 주요 링크
+
+| 리소스 | URL |
+|--------|-----|
+| **npm** | [@fiddle-digital/string-tune](https://www.npmjs.com/package/@fiddle-digital/string-tune) |
+| **공식 문서** | [tune.fiddle.digital](https://tune.fiddle.digital/) |
+| **데모 사이트** | [tune-demo.fiddle.digital](https://tune-demo.fiddle.digital/) |
+| **Codrops 기사** | [StringTune 소개](https://tympanus.net/codrops/2025/03/19/stringtune-the-javascript-library-born-from-a-design-agencys-workflow/) |
+
+---
+
+## 설치
+
+```bash
+# npm
+npm install @fiddle-digital/string-tune
+
+# pnpm
+pnpm add @fiddle-digital/string-tune
+```
+
+### CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@fiddle-digital/string-tune/dist/index.js"></script>
+```
+
+---
+
+## 현재 버전
+
+**v1.1.46**

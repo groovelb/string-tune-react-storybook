@@ -2,6 +2,15 @@
 
 이 프로젝트에서 Storybook 스토리를 작성할 때 따라야 하는 규칙입니다.
 
+## 핵심 규칙: 원본 데모와 동일하게 작성
+
+**모든 Storybook 스토리는 `/src/string-tune-demo/` 폴더의 원본 튜토리얼 예제와 동일하게 작성합니다.**
+
+- HTML 구조, CSS 스타일, 그리드 레이아웃, 애니메이션 모두 원본과 동일하게 유지
+- 이미지 URL: `https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg`
+- 매칭 테이블: `docs/storybook-write.md` 참조
+- 데모 목록: `docs/string-tune-demo-list.md` 참조
+
 ## 컴포넌트 유형 분류
 
 ### Type A: 즉시 확인 가능 (마우스 인터랙션)

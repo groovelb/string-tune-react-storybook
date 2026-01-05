@@ -2,7 +2,7 @@ import { type ReactNode, type ElementType, type CSSProperties } from 'react';
 
 export interface CursorFollowProps {
   /** 자식 요소 */
-  children: ReactNode;
+  children?: ReactNode;
   /** 커서 추적 부드러움 (0~1, 낮을수록 더 빠르게 추적) */
   lerp?: number;
   /** 추가 CSS 클래스 */
@@ -11,6 +11,12 @@ export interface CursorFollowProps {
   style?: CSSProperties;
   /** 렌더링할 HTML 태그 */
   as?: ElementType;
+  /** 호버 시 커서 요소에 추가할 클래스 (타겟 모드) */
+  cursorClass?: string;
+  /** 타겟 스타일 비활성화 */
+  disableTargetStyle?: boolean;
+  /** 커서 팔로워 모드 (true일 때 마우스를 따라다님) */
+  isFollower?: boolean;
 }
 
 /**
@@ -43,7 +49,26 @@ export function CursorFollow({
   className = '',
   style,
   as: Component = 'div',
+  cursorClass,
+  disableTargetStyle,
+  isFollower,
 }: CursorFollowProps) {
+  // 타겟 모드: 호버 시 커서에 클래스 추가
+  if (cursorClass !== undefined) {
+    return (
+      <Component
+        data-string="cursor"
+        data-string-cursor-class={cursorClass}
+        {...(disableTargetStyle && { 'data-string-cursor-target-style-disable': '' })}
+        className={className}
+        style={style}
+      >
+        {children}
+      </Component>
+    );
+  }
+
+  // 팔로워 모드: 마우스를 따라다님
   return (
     <Component
       data-string-cursor=""

@@ -27,31 +27,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const IMAGE_URL =
-  'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
 
 export const Default: Story = {
   args: {},
   render: () => (
-    <div className="scroll-demo-wrapper" style={{ minHeight: '400vh' }}>
-      <div className="instruction">
-        Scroll up/down to see lerp effect (card tilts based on scroll direction)
-      </div>
+    <div className="lerp-demo-wrapper">
+      <span className="note">(Disabled on mobile devices)</span>
 
-      <Lerp className="lerp-section">
-        <figure className="lerp-card">
-          <img src={IMAGE_URL} alt="Lerp demo" />
-        </figure>
+      <p>The surface stays still while the structure shifts underneath.</p>
+
+      <Lerp as="figure" className="image-1">
+        <img src={IMAGE_URL} alt="StringTune" />
       </Lerp>
 
-      <div className="scroll-spacer">Keep Scrolling</div>
+      <h1 className="title">
+        Up/<br />Down
+      </h1>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '`--lerp` 값은 스크롤 방향에 따라 양수/음수가 됩니다. 빠르게 스크롤할수록 절대값이 커집니다. 카드의 기울기와 확대 효과에 활용했습니다.',
+          '`--lerp` 값에 따라 이미지의 polygon clip-path가 변형됩니다. 스크롤 방향과 속도에 따라 모서리가 움직이는 효과를 확인하세요.',
       },
     },
   },

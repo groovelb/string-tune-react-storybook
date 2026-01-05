@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StringTune : Tutorial : Footer shifting</title>
+    <style>
+@property --progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-angle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-distance {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --vh: 1vh;
+  --vw: 1vw;
+  --c-white: #ffffff;
+  --c-black: #000000;
+  --c-grey-dark: #333333;
+  --c-grey-dark-rgba: 51, 51, 51;
+  --c-grey: #999999;
+  --c-red: #FF5A37;
+
+  --easing-function: cubic-bezier(0.86, 0, 0.31, 1);
+  --easing-function-2: cubic-bezier(0.35, 0.35, 0, 1);
+  --easing-timing: 1.5s;
+
+  --g-gap: 0.4rem;
+  --g-margin: calc(var(--g-gap) * 2);
+
+  --mm: 0.64rem;
+  --m: 0.8rem;
+  --p: 1rem;
+  --h6: 1.25rem;
+  --h5: 1.563rem;
+  --h4: 1.953rem;
+  --h3: 2.441rem;
+  --h2: 3.052rem;
+  --h1: 3.815rem;
+  --h0: 5.065rem;
+  --large: max(6.331rem, 18vw);
+  
+}
+@media (min-width: 1024px) {
+  :root {
+    --g-margin: calc(var(--g-gap) * 4);
+  }
+}
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #808080;
+  color: black;
+}
+.-w {
+  margin-left: var(--g-margin);
+  margin-right: var(--g-margin);
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+body {
+  min-height: 100lvh;
+}
+.note {
+  color: var(--c-white);
+}
+svg {
+  display: block;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1,
+h2,
+h3,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+}
+.-lrg {
+  font-size: var(--large);
+}
+.-h0 {
+  font-size: var(--h0);
+}
+h1, .-h1 {
+  font-size: var(--h1);
+}
+h2, .-h2 {
+  font-size: var(--h2);
+}
+h3, .-h3 {
+  font-size: var(--h3);
+}
+h4, .-h4 {
+  font-size: var(--h4);
+}
+h5, .-h5 {
+  font-size: var(--h5);
+}
+h6, .-h6 {
+  font-size: var(--h6);
+}
+.-p {
+  font-size: var(--p);
+}
+.-m {
+  font-size: var(--m);
+}
+.-mm {
+  font-size: var(--mm);
+}
+@media (max-width: 1600px) {
+  .-mid-lrg {
+    font-size: var(--large);
+  }
+  .-mid-h0 {
+    font-size: var(--h0);
+  }
+  .-mid-h1 {
+    font-size: var(--h1);
+  }
+  .-mid-h2 {
+    font-size: var(--h2);
+  }
+  .-mid-h3 {
+    font-size: var(--h3);
+  }
+  .-mid-h4 {
+    font-size: var(--h4);
+  }
+  .-mid-h5 {
+    font-size: var(--h5);
+  }
+  .-mid-h6 {
+    font-size: var(--h6);
+  }
+  .-mid-p {
+    font-size: var(--p);
+  }
+  .-mid-m {
+    font-size: var(--m);
+  }
+  .-mid-mm {
+    font-size: var(--mm);
+  }
+}
+
+@media (max-width: 1024px) {
+  .-m-lrg {
+    font-size: var(--large);
+  }
+  .-m-h0 {
+    font-size: var(--h0);
+  }
+  .-m-h1 {
+    font-size: var(--h1);
+  }
+  .-m-h2 {
+    font-size: var(--h2);
+  }
+  .-m-h3 {
+    font-size: var(--h3);
+  }
+  .-m-h4 {
+    font-size: var(--h4);
+  }
+  .-m-h5 {
+    font-size: var(--h5);
+  }
+  .-m-h6 {
+    font-size: var(--h6);
+  }
+  .-m-p {
+    font-size: var(--p);
+  }
+  .-m-m {
+    font-size: var(--m);
+  }
+  .-m-mm {
+    font-size: var(--mm);
+  }
+}
+
+.-up {
+  text-transform: uppercase;
+}
+.-tac {
+  text-align: center;
+}
+
+.-splitted {
+  display: flex;
+  flex-wrap: wrap;
+
+  .-s-line {
+    display: flex;
+    will-change: contents;
+  }
+  .-s-word {
+    display: inline-flex;
+    will-change: contents;
+  }
+  .-s-char {
+    display: inline-flex;
+    will-change: contents;
+  }
+}
+
+.content {
+  min-height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+  z-index: 20;
+  background-color: var(--c-black);
+  color: var(--c-white);
+}
+.footer {
+  position: relative;
+  background-color: #3687FF;
+  color: var(--c-white);
+}
+.footer::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--c-black);
+  opacity: calc( 1 - var(--progress) );
+  pointer-events: none;
+}
+.-w {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  align-items: start;
+  column-gap: var(--g-gap);
+}
+.footer .-w {
+  grid-template-rows: auto auto 1fr auto;
+  min-height: calc(var(--vh, 1vh) * 100);
+  transform: translate3d(0,calc( -50% + 50% * var(--progress) ),0);
+}
+
+.title {
+  grid-column-start: 1;
+  grid-column-end: 15;
+  margin-top: var(--large);
+}
+@media (min-width: 1024px) {
+  .title {
+    grid-column-start: 4;
+    grid-column-end: 12;
+  }
+}
+.cta-title {
+  grid-row: 2;
+  grid-column-start: 1;
+  grid-column-end: 8;
+  margin-top: var(--h3);
+  padding-right: var(--p);
+}
+@media (min-width: 1024px) {
+  .cta-title {
+    grid-column-start: 5;
+    grid-column-end: 8;
+  }
+}
+.cta-caption {
+  grid-row: 2;
+  grid-column-start: 8;
+  grid-column-end: 15;
+  margin-top: var(--h3);
+  padding-top: 0.25em;
+}
+@media (min-width: 1024px) {
+  .cta-caption {
+    grid-column-start: 8;
+    grid-column-end: 11;
+  }
+}
+.button {
+  grid-row: 3;
+  grid-column-start: 8;
+  grid-column-end: 10;
+  justify-self: start;
+  margin-top: var(--p);
+  display: inline-block;
+  padding: var(--mm) var(--p);
+  background-color: #3687FF;
+  border-radius: var(--g-gap);
+}
+
+span.logo {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  justify-self: start;
+  margin-top: calc( var(--h0) + var(--h3) );
+}
+@media (min-width: 1024px) {
+  span.logo {
+    grid-column-start: 3;
+    grid-column-end: 7;
+  }
+}
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+nav.menu {
+  grid-row: 2;
+  grid-column-start: 1;
+  grid-column-end: 8;
+  margin-top: var(--h5);
+}
+@media (min-width: 1024px) {
+  nav.menu {
+    grid-row: 1;
+    grid-column-start: 8;
+    grid-column-end: 11;
+    margin-top: calc( var(--h0) + var(--h3) );
+  }
+}
+nav.help {
+  grid-row: 2;
+  grid-column-start: 8;
+  grid-column-end: 15;
+  margin-top: var(--h5);
+}
+@media (min-width: 1024px) {
+  nav.help {
+    grid-row: 1;
+    grid-column-start: 11;
+    grid-column-end: 15;
+    margin-top: calc( var(--h0) + var(--h3) );
+  }
+}
+
+nav.legal {
+  grid-row: 3;
+  grid-column-start: 1;
+  grid-column-end: 8;
+  margin-top: var(--h0);
+}
+@media (min-width: 1024px) {
+  nav.legal {
+    grid-row: 2;
+    grid-column-start: 8;
+    grid-column-end: 11;
+  }
+}
+nav.socials {
+  grid-row: 3;
+  grid-column-start: 8;
+  grid-column-end: 15;
+  margin-top: var(--h0);
+}
+@media (min-width: 1024px) {
+  nav.socials {
+    grid-row: 2;
+    grid-column-start: 11;
+    grid-column-end: 15;
+  }
+}
+.copy {
+  grid-row: 5;
+  grid-column-start: 1;
+  grid-column-end: 8;
+  justify-self: start;
+  margin-top: var(--h0);
+  margin-bottom: calc( var(--h0) * 2);
+}
+@media (min-width: 1024px) {
+  .copy {
+    grid-row: 4;
+    grid-column-start: 3;
+    grid-column-end: 11;
+    margin-bottom: var(--h0);
+  }
+}
+</style>
+</head>
+
+  <body>
+    <div class="content">
+  <div class="-w">
+    <p class="title -h3 -m-h5 -tac">A lifestyle brand focused on cozy home tech and ambient lighting.</p>
+    <span class="cta-title -h5 -m-h6">Bring warmth to your space.</span>
+    <p class="cta-caption -m">Discover how light can transform your evenings — from gentle glows to deep ambers. Join our newsletter for tips, early product releases, and a little brightness in your inbox.</p>
+    <span class="button -m">Subscribe</span>
+  </div>
+</div>
+<div class="footer" string="progress" string-exit-vp="bottom">
+  <div class="-w">
+    <span class="logo -h3 -m-h5">GlowNest</span>
+
+    <nav class="menu -h5">
+      <span>Shop</span>
+      <span>About</span>
+      <span>Support</span>
+    </nav>
+    <nav class="help -p -m-m">
+      <span>FAQs</span>
+      <span>Shipping & Returns</span>
+      <span>Warranty</span>
+      <span>Warranty</span>
+      <span>Contact</span>
+    </nav>
+    <nav class="legal -m">
+      <span>Privacy Policy</span>
+      <span>Terms & Conditions</span>
+      <span>Cookies</span>
+    </nav>
+    <nav class="socials -m">
+      <span>Instagram</span>
+      <span>Pinterest</span>
+      <span>YouTube</span>
+      <span>LinkedIn</span>
+    </nav>
+    <div class="copy -mm -up">© 2025 GlowNest.<br/>All rights reserved</div>
+  </div>
+</div>
+  </body>
+</html>
+<script src="https://unpkg.com/@fiddle-digital/string-tune@1.1.45/dist/index.js"></script>
+<script>
+  const stringTune = StringTune.StringTune.getInstance();
+  window.StringTuneContext = stringTune;
+    stringTune.use(StringTune.StringProgress);
+
+  stringTune.start(0);
+</script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+{/* Essential/Modules.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Essential/Modules" />
+
+# 모듈 구조
+
+StringTune은 18개의 모듈로 구성되어 있습니다. 필요한 모듈만 선택적으로 사용할 수 있습니다.
+
+---
+
+## Core
+
+| 모듈 | 설명 | 속성 |
+|------|------|------|
+| **StringTune** | 핵심 엔진, 스크롤 이벤트 처리 | - |
+| **StringLoading** | 페이지 로딩 완료 감지 | `string="loading"` |
+
+---
+
+## Animation Effects
+
+| 모듈 | 설명 | 속성 | CSS 변수 |
+|------|------|------|----------|
+| **StringParallax** | 패럴랙스 효과 | `string="parallax"` | `--parallax` |
+| **StringLerp** | 스크롤 보간 | `string="lerp"` | `--lerp` |
+| **StringGlide** | 방향성 트래킹 | `string="glide"` | `--glide` |
+| **StringMagnetic** | 마그네틱 효과 | `string="magnetic"` | `--magnetic-x`, `--magnetic-y` |
+
+---
+
+## UI Elements
+
+| 모듈 | 설명 | 속성 | 특징 |
+|------|------|------|------|
+| **StringScrollbar** | 커스텀 스크롤바 | `string="scrollbar"` | - |
+| **StringCursor** | 커서 인터랙션 | `string="cursor"` | `--x`, `--y` 변수 |
+| **StringSplit** | 텍스트 분할 | `string="split"` | `-s-char`, `-s-word`, `-s-line` 클래스 |
+| **StringSpotlight** | 스포트라이트 효과 | `string="spotlight"` | `--spotlight-angle`, `--spotlight-distance` |
+| **StringImpulse** | 클릭 파동 효과 | `string="impulse"` | - |
+
+---
+
+## Performance & Media
+
+| 모듈 | 설명 | 속성 |
+|------|------|------|
+| **StringLazy** | 이미지 지연 로딩 | `string="lazy"` |
+| **StringVideoAutoplay** | 비디오 자동 재생 | `string="video"` |
+
+---
+
+## Tracking
+
+| 모듈 | 설명 | 속성 | CSS 변수 |
+|------|------|------|----------|
+| **StringProgress** | 스크롤 진행률 | `string="progress"` | `--progress` (0~1) |
+| **StringPositionTracker** | 위치/방향 추적 | - | 개발 도구 |
+| **StringFPSTracker** | FPS 측정 | - | 개발 도구 |
+
+---
+
+## Utilities
+
+| 모듈 | 설명 | 속성 |
+|------|------|------|
+| **StringResponsive** | 반응형 동작 | - |
+| **StringAnchor** | 앵커 포인트 | `string="anchor"` |
+| **StringSequence** | 시퀀스 슬라이드 | `string="sequence"` |
+
+---
+
+## 프로젝트 구조
+
+```
+src/
+├── components/string-tune/     # React 컴포넌트 래퍼
+│   ├── provider/               # StringTuneProvider
+│   ├── scroll/                 # 스크롤 기반 (Parallax, Glide, Lerp...)
+│   ├── cursor/                 # 커서 기반 (Magnetic, Spotlight, CursorFollow)
+│   ├── interactive/            # 인터랙티브 (Impulse, Sequence)
+│   ├── text/                   # 텍스트 (SplitText)
+│   ├── form/                   # 폼 (FormField)
+│   └── index.ts
+│
+└── stories/string-tune/        # Storybook 스토리
+    ├── string-tune.css         # 데모 스타일
+    └── *.stories.tsx           # 컴포넌트별 스토리
+```
+
+---
+
+## CSS 변수 요약
+
+| 컴포넌트 | 변수 | 값 범위 | 활용 예시 |
+|---------|------|---------|----------|
+| Progress | `--progress` | 0 ~ 1 | `opacity: var(--progress)` |
+| Parallax | `--parallax` | px 값 | `translateY(calc(var(--parallax) * 1px))` |
+| Lerp | `--lerp` | 음수/양수 | 스크롤 방향 기반 변형 |
+| Glide | `--glide` | px 값 | `translateY(calc(var(--glide) * 1px))` |
+| Magnetic | `--magnetic-x`, `--magnetic-y` | px 값 | `translate(var(--magnetic-x), var(--magnetic-y))` |
+| Spotlight | `--spotlight-angle` | deg | `rotate(calc(var(--spotlight-angle) * 1deg))` |
+| Spotlight | `--spotlight-distance` | px | 거리 기반 효과 |
+| Cursor | `--x`, `--y` | px | 커서 위치 |
+| SplitText | `--char-index`, `--word-index`, `--line-index` | 정수 | 순차 애니메이션 |
+
+---
+
+## 클래스 토글
+
+일부 컴포넌트는 CSS 변수 대신 클래스 토글 방식을 사용합니다.
+
+| 컴포넌트 | 클래스 | 조건 |
+|---------|--------|------|
+| RevealOnScroll | `.-inview` | 뷰포트 진입 시 |
+| FormField | `.-focus` | 포커스 상태 |
+| FormField | `.-filled` | 값이 있을 때 |
+| FormField | `.-valid` | 유효성 검사 통과 |
+| FormField | `.-invalid` | 유효성 검사 실패 |

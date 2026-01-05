@@ -6,7 +6,7 @@ const meta = {
   title: 'StringTune/Basic/Magnetic',
   component: Magnetic,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       description: {
         component:
@@ -35,18 +35,35 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+
 export const Default: Story = {
   args: {
-    radius: 400,
+    radius: 800,
     strength: 0.1,
-    className: 'magnetic-demo',
-    children: 'Hover me',
   },
+  render: () => (
+    <div className="magnetic-demo-wrapper">
+      <Magnetic as="figure" className="image-1" radius={800} strength={0.1}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Magnetic>
+
+      <Magnetic as="figure" className="image-2" radius={800} strength={0.1}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Magnetic>
+
+      <Magnetic as="figure" className="image-3" radius={800} strength={0.1}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Magnetic>
+
+      <span className="note">(Disabled on mobile devices)</span>
+    </div>
+  ),
   parameters: {
     docs: {
       description: {
         story:
-          '버튼 위에 마우스를 올리면 커서 방향으로 부드럽게 끌립니다. CSS에서 `--magnetic-x`, `--magnetic-y` 변수를 transform에 활용하세요.',
+          '3개의 이미지가 3D perspective로 배치되어 있습니다. 마우스를 움직이면 `--magnetic-x`, `--magnetic-y` 값에 따라 rotateX/rotateY가 적용됩니다. hover 시 이미지들이 흩어지는 scatter 효과도 확인하세요.',
       },
     },
   },

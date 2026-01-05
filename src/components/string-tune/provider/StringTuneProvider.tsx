@@ -13,6 +13,8 @@ import {
   StringSplit,
   StringForm,
   StringSequence,
+  StringFPSTracker,
+  StringPositionTracker,
 } from '@fiddle-digital/string-tune';
 
 interface StringTuneContextValue {
@@ -41,9 +43,15 @@ export interface StringTuneProviderProps {
     | 'split'
     | 'form'
     | 'sequence'
+    | 'fpsTracker'
+    | 'positionTracker'
   >;
   /** 디버그 모드 */
   debug?: boolean;
+  /** FPS Tracker 표시 여부 */
+  fpsTrackerVisible?: boolean;
+  /** Position Tracker 표시 여부 */
+  positionTrackerVisible?: boolean;
 }
 
 const MODULE_MAP = {
@@ -59,6 +67,8 @@ const MODULE_MAP = {
   split: StringSplit,
   form: StringForm,
   sequence: StringSequence,
+  fpsTracker: StringFPSTracker,
+  positionTracker: StringPositionTracker,
 } as const;
 
 const ALL_MODULES = Object.keys(MODULE_MAP) as Array<keyof typeof MODULE_MAP>;
@@ -67,6 +77,8 @@ export function StringTuneProvider({
   children,
   modules = ALL_MODULES,
   debug = false,
+  fpsTrackerVisible = false,
+  positionTrackerVisible = false,
 }: StringTuneProviderProps) {
   const instanceRef = useRef<StringTune | null>(null);
 
@@ -89,6 +101,14 @@ export function StringTuneProvider({
     // StringTune 시작
     instance.start(debug ? 1 : 0);
 
+    // Tracker visibility 설정
+    if (modules.includes('fpsTracker')) {
+      (instance as unknown as { FPSTrackerVisible: boolean }).FPSTrackerVisible = fpsTrackerVisible;
+    }
+    if (modules.includes('positionTracker')) {
+      (instance as unknown as { PositionTrackerVisible: boolean }).PositionTrackerVisible = positionTrackerVisible;
+    }
+
     if (debug) {
       console.log('[StringTune] Started with modules:', modules);
       // 글로벌 접근용 (디버깅)
@@ -105,7 +125,7 @@ export function StringTuneProvider({
         }
       }
     };
-  }, [modules, debug]);
+  }, [modules, debug, fpsTrackerVisible, positionTrackerVisible]);
 
   const refresh = () => {
     if (instanceRef.current) {

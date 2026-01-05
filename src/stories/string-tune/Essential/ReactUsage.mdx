@@ -1,0 +1,193 @@
+{/* Essential/ReactUsage.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Essential/React Usage" />
+
+# React에서 사용하기
+
+이 프로젝트의 React 컴포넌트 래퍼를 사용하면 StringTune을 쉽게 활용할 수 있습니다.
+
+---
+
+## 기본 설정
+
+### 1. StringTuneProvider 설정
+
+앱의 루트에 `StringTuneProvider`를 추가합니다.
+
+```tsx
+import { StringTuneProvider } from './components/string-tune';
+
+function App() {
+  return (
+    <StringTuneProvider modules={['parallax', 'magnetic', 'progress']}>
+      <YourApp />
+    </StringTuneProvider>
+  );
+}
+```
+
+### 2. 컴포넌트 사용
+
+```tsx
+import { Parallax, Magnetic, ScrollProgress } from './components/string-tune';
+
+function Hero() {
+  return (
+    <>
+      {/* 패럴랙스 효과 */}
+      <Parallax intensity={0.5}>
+        <img src="/hero.jpg" alt="Hero" />
+      </Parallax>
+
+      {/* 마그네틱 버튼 */}
+      <Magnetic radius={400} strength={0.1}>
+        <button>Hover Me</button>
+      </Magnetic>
+
+      {/* 스크롤 진행률 */}
+      <ScrollProgress enterVp="top" exitVp="bottom">
+        <div className="progress-content">
+          Content
+        </div>
+      </ScrollProgress>
+    </>
+  );
+}
+```
+
+---
+
+## 컴포넌트 목록
+
+### 스크롤 기반
+
+| 컴포넌트 | 주요 Props | 설명 |
+|---------|-----------|------|
+| `RevealOnScroll` | `repeat` | 뷰포트 진입 시 노출 |
+| `Parallax` | `intensity` | 패럴랙스 효과 |
+| `ScrollProgress` | `enterVp`, `exitVp` | 스크롤 진행률 |
+| `Lerp` | - | 스크롤 보간 |
+| `Glide` | `intensity` | 방향성 트래킹 |
+
+### 커서 기반
+
+| 컴포넌트 | 주요 Props | 설명 |
+|---------|-----------|------|
+| `Magnetic` | `radius`, `strength` | 마그네틱 효과 |
+| `Spotlight` | - | 스포트라이트 효과 |
+| `CursorFollow` | `lerp`, `isFollower` | 커서 추적 |
+
+### 텍스트 & 폼
+
+| 컴포넌트 | 주요 Props | 설명 |
+|---------|-----------|------|
+| `SplitText` | `split` ('char', 'word', 'line') | 텍스트 분할 |
+| `FormField` | `type`, `name`, `label` | 폼 필드 |
+
+### 인터랙티브
+
+| 컴포넌트 | 주요 Props | 설명 |
+|---------|-----------|------|
+| `Impulse` | - | 클릭 파동 |
+| `Sequence` | `name`, `index` | 시퀀스 슬라이드 |
+
+---
+
+## `as` Prop
+
+모든 컴포넌트는 `as` prop으로 렌더링할 HTML 태그를 변경할 수 있습니다.
+
+```tsx
+{/* div 대신 figure로 렌더링 */}
+<Parallax as="figure" intensity={0.5}>
+  <img src="/image.jpg" alt="" />
+</Parallax>
+
+{/* span으로 렌더링 */}
+<SplitText as="span" split="word">
+  Hello World
+</SplitText>
+```
+
+---
+
+## CSS 스타일링
+
+### CSS 변수 활용
+
+```css
+/* Parallax */
+.parallax-element img {
+  transform: translateY(calc(var(--parallax) * 1px));
+}
+
+/* Progress */
+.progress-element {
+  opacity: var(--progress);
+  scale: calc(0.5 + var(--progress) * 0.5);
+}
+
+/* Magnetic */
+.magnetic-element {
+  transform: translate(
+    calc(var(--magnetic-x) * 0.5px),
+    calc(var(--magnetic-y) * 0.5px)
+  );
+}
+```
+
+### 클래스 토글 활용
+
+```css
+/* RevealOnScroll */
+.reveal-element {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.reveal-element.-inview {
+  opacity: 1;
+}
+```
+
+---
+
+## 개발 도구
+
+### FPS Tracker
+
+```tsx
+<StringTuneProvider
+  modules={['fpsTracker']}
+  fpsTrackerVisible={true}
+>
+  {/* 앱 내용 */}
+</StringTuneProvider>
+```
+
+### Position Tracker
+
+```tsx
+<StringTuneProvider
+  modules={['positionTracker']}
+  positionTrackerVisible={true}
+>
+  {/* 앱 내용 */}
+</StringTuneProvider>
+```
+
+---
+
+## 모바일 대응
+
+패럴랙스, 마그네틱 등 일부 효과는 모바일에서 자동으로 비활성화됩니다.
+CSS에서 모바일 대응 스타일을 별도로 정의하세요.
+
+```css
+@media (max-width: 1024px) {
+  .parallax-element img {
+    transform: none; /* 모바일에서 패럴랙스 비활성화 */
+  }
+}
+```

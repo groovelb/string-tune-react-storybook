@@ -31,50 +31,77 @@ export const Default: Story = {
   args: {},
   render: () => (
     <div className="form-demo-wrapper">
-      <div className="instruction">Type in the fields to see validation states</div>
-
-      <div className="form-container">
-        <h2>Sign Up</h2>
-
-        <FormField className="form-field">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="your@email.com"
-            required
-          />
-          <div className="hint">Please enter a valid email address</div>
-        </FormField>
-
-        <FormField className="form-field">
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Min 8 characters"
-            required
-            minLength={8}
-          />
-          <div className="hint">Password must be at least 8 characters</div>
-        </FormField>
-
-        <FormField className="form-field">
-          <label>Username</label>
+      <form className="form-container" data-string="form" data-string-id="demo">
+        <FormField as="fieldset" className="form-field">
+          <label htmlFor="username">Username</label>
           <input
             type="text"
-            placeholder="Choose a username"
-            required
-            pattern="[a-zA-Z0-9_]+"
+            name="username"
+            id="username"
+            placeholder="Only letters, numbers, dash, underscore"
           />
-          <div className="hint">Only letters, numbers, and underscores</div>
+          <div className="error-message">
+            <span>Required field</span>
+          </div>
         </FormField>
-      </div>
+
+        <FormField as="fieldset" className="form-field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter a valid email address"
+          />
+          <div className="error-message">
+            <span>Invalid email format</span>
+          </div>
+        </FormField>
+
+        <FormField as="fieldset" className="form-field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="At least 8 characters"
+          />
+          <div className="error-message">
+            <span>Minimum 8 characters required</span>
+          </div>
+        </FormField>
+
+        <FormField as="fieldset" className="form-field">
+          <label htmlFor="password_confirm">Confirm Password</label>
+          <input
+            type="password"
+            name="password_confirm"
+            id="password_confirm"
+            placeholder="Re-enter your password"
+          />
+          <div className="error-message">
+            <span>Passwords do not match</span>
+          </div>
+        </FormField>
+
+        <FormField as="fieldset" className="form-field checkbox-field">
+          <input
+            type="checkbox"
+            name="terms"
+            id="terms"
+          />
+          <label htmlFor="terms">I agree to the terms and conditions</label>
+        </FormField>
+
+        <button type="submit">Validate</button>
+      </form>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '이메일, 비밀번호, 사용자명 필드가 있는 폼 예제입니다. 각 필드에 입력하면 HTML5 유효성 검사에 따라 `-valid` 또는 `-invalid` 클래스가 적용됩니다.',
+          '파란색 테마의 회원가입 폼입니다. 각 필드에 입력하면 유효성 상태에 따라 `-valid`, `-invalid`, `-error` 클래스가 적용되어 시각적 피드백이 제공됩니다.',
       },
     },
   },

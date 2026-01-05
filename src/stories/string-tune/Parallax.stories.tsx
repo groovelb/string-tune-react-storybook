@@ -23,7 +23,7 @@ const meta = {
     as: {
       description: '렌더링할 HTML 태그',
       control: 'select',
-      options: ['div', 'figure', 'section'],
+      options: ['div', 'figure', 'section', 'h1'],
     },
   },
 } satisfies Meta<typeof Parallax>;
@@ -31,47 +31,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const IMAGE_URL =
-  'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
 
 export const Default: Story = {
   args: {
-    speed: 0.5,
+    speed: 0.75,
   },
-  render: (args) => (
-    <div className="scroll-demo-wrapper">
-      <div className="instruction">Scroll down to see parallax effect</div>
+  render: () => (
+    <div className="parallax-demo-wrapper">
+      <span className="note">(Disabled on mobile devices)</span>
 
-      <div className="scroll-spacer">Scroll Down</div>
+      <figure className="image-bg">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </figure>
 
-      <div className="parallax-section">
-        <Parallax {...args} className="parallax-bg">
-          <img src={IMAGE_URL} alt="Parallax background" />
-        </Parallax>
-        <Parallax speed={(args.speed ?? 0.5) * -0.5} className="parallax-fg">
-          <h1 className="parallax-title">Parallax</h1>
-        </Parallax>
-      </div>
+      <Parallax as="figure" className="image-1" speed={0.75}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Parallax>
 
-      <div className="scroll-spacer">Keep Scrolling</div>
+      <Parallax as="h1" className="title line-1" speed={-0.1}>
+        Thought
+      </Parallax>
 
-      <div className="parallax-section">
-        <Parallax speed={0.3} className="parallax-bg">
-          <img src={IMAGE_URL} alt="Parallax background" />
-        </Parallax>
-        <Parallax speed={-0.2} className="parallax-fg">
-          <h1 className="parallax-title">Effect</h1>
-        </Parallax>
-      </div>
-
-      <div className="scroll-spacer">End</div>
+      <Parallax as="h1" className="title line-2" speed={0.1}>
+        String
+      </Parallax>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '배경 이미지와 텍스트에 서로 다른 speed 값을 적용하여 깊이감을 만듭니다. 스크롤하면 레이어가 다른 속도로 움직이는 것을 확인하세요.',
+          '배경 이미지 위에 전경 이미지와 "Thought/String" 텍스트가 각각 다른 패럴랙스 속도로 배치됩니다. 스크롤하면 레이어가 다른 속도로 움직이는 깊이감을 확인하세요.',
       },
     },
   },

@@ -31,46 +31,48 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const IMAGE_URL =
-  'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
 
 export const Default: Story = {
   args: {
     repeat: true,
   },
   render: (args) => (
-    <div className="scroll-demo-wrapper">
-      <div className="instruction">
-        Scroll down to reveal images (repeat: {args.repeat ? 'on' : 'off'})
+    <div className="reveal-demo-wrapper">
+      <div className="reveal-header">
+        <span>Scroll to reveal</span>
       </div>
 
-      <div className="scroll-spacer">Scroll Down</div>
+      <RevealOnScroll {...args} as="figure" className="image-1">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: 800, margin: '0 auto' }}>
-        <RevealOnScroll {...args} className="reveal-demo" as="figure">
-          <img src={IMAGE_URL} alt="Reveal 1" style={{ width: '100%', height: 300, objectFit: 'cover' }} />
-        </RevealOnScroll>
-        <RevealOnScroll {...args} className="reveal-demo" as="figure">
-          <img src={IMAGE_URL} alt="Reveal 2" style={{ width: '100%', height: 300, objectFit: 'cover' }} />
-        </RevealOnScroll>
-      </div>
+      <RevealOnScroll {...args} as="figure" className="image-2">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
 
-      <div className="scroll-spacer">Keep Scrolling</div>
+      <RevealOnScroll {...args} as="figure" className="image-3">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
 
-      <div style={{ maxWidth: 600, margin: '0 auto' }}>
-        <RevealOnScroll {...args} className="reveal-demo" as="figure">
-          <img src={IMAGE_URL} alt="Reveal 3" style={{ width: '100%', height: 400, objectFit: 'cover' }} />
-        </RevealOnScroll>
-      </div>
+      <RevealOnScroll {...args} as="figure" className="image-4">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
 
-      <div className="scroll-spacer">End</div>
+      <RevealOnScroll {...args} as="figure" className="image-5">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
+
+      <RevealOnScroll {...args} as="figure" className="image-6">
+        <img src={IMAGE_URL} alt="StringTune" />
+      </RevealOnScroll>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '스크롤하여 이미지가 뷰포트에 들어오면 `-inview` 클래스가 추가되며 애니메이션이 실행됩니다. `repeat` 옵션이 켜져 있으면 다시 스크롤 아웃 후 인 시 애니메이션이 재실행됩니다.',
+          '14열 그리드에 6개의 이미지가 다양한 위치에 배치됩니다. 스크롤하여 이미지가 뷰포트에 들어오면 `-inview` 클래스가 추가되며 clip-path와 scale 애니메이션이 실행됩니다.',
       },
     },
   },

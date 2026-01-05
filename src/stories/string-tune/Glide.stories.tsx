@@ -31,67 +31,44 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const IMAGE_URL =
-  'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
 
 export const Default: Story = {
   args: {
     delay: 0.5,
   },
   render: () => (
-    <div className="scroll-demo-wrapper">
-      <div className="instruction">
-        Scroll down to see glide effect (each column has different delay)
-      </div>
+    <div className="glide-demo-wrapper">
+      <span className="note">(Disabled on mobile devices)</span>
 
-      <div className="scroll-spacer">Scroll Down</div>
+      <p>Order is temporary — tension is permanent.</p>
 
-      <div className="glide-section">
-        <Glide delay={1.17} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide 1" />
-        </Glide>
-        <Glide delay={0.91} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide 2" />
-        </Glide>
-        <Glide delay={0.65} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide 3" />
-        </Glide>
-        <Glide delay={0.91} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide 4" />
-        </Glide>
-        <Glide delay={1.17} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide 5" />
-        </Glide>
-      </div>
+      <Glide as="figure" className="image-1" delay={1.0}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Glide>
 
-      <div className="scroll-spacer">Keep Scrolling</div>
+      <Glide as="figure" className="image-2" delay={0.5}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Glide>
 
-      <div className="glide-section">
-        <Glide delay={0.65} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide A" />
-        </Glide>
-        <Glide delay={0.78} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide B" />
-        </Glide>
-        <Glide delay={0.91} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide C" />
-        </Glide>
-        <Glide delay={1.04} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide D" />
-        </Glide>
-        <Glide delay={1.17} className="glide-item" as="figure">
-          <img src={IMAGE_URL} alt="Glide E" />
-        </Glide>
-      </div>
+      <Glide as="figure" className="image-3" delay={0.0}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Glide>
 
-      <div className="scroll-spacer">End</div>
+      <Glide as="figure" className="image-4" delay={0.5}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Glide>
+
+      <Glide as="figure" className="image-5" delay={1.0}>
+        <img src={IMAGE_URL} alt="StringTune" />
+      </Glide>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '5개 이미지에 각각 다른 delay(1.0, 0.75, 0, 0.75, 1.0)를 적용했습니다. 가운데 이미지(delay: 0)가 가장 먼저 반응하고, 양쪽 이미지(delay: 1.0)가 가장 늦게 반응합니다.',
+          '5개 이미지에 대칭적인 delay 값(1.0, 0.5, 0.0, 0.5, 1.0)을 적용했습니다. 가운데 이미지(delay: 0)가 가장 먼저 반응하고, 양쪽 끝 이미지(delay: 1.0)가 가장 늦게 반응합니다.',
       },
     },
   },
