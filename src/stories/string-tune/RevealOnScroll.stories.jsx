@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { RevealOnScroll } from '../../components/string-tune';
 import './string-tune.css';
+import img10 from '../../assets/alphabet/10-n.png';
 
 const meta = {
   title: 'StringTune/Basic/RevealOnScroll',
@@ -30,7 +31,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img10;
 
 export const Default = {
   args: {

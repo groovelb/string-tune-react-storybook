@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { SplitText } from '../../components/string-tune';
 import './string-tune.css';
+import img1 from '../../assets/alphabet/1-v.png';
 
 const meta = {
   title: 'StringTune/Basic/SplitText',
@@ -35,7 +36,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img1;
 
 export const Default = {
   args: {

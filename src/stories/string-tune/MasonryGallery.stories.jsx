@@ -1,18 +1,30 @@
 import { MasonryGallery } from '../../components/string-tune/recipes/MasonryGallery.jsx';
+import img1 from '../../assets/alphabet/1-v.png';
+import img2 from '../../assets/alphabet/2-i.png';
+import img3 from '../../assets/alphabet/3-b.png';
+import img4 from '../../assets/alphabet/4-e.png';
+import img5 from '../../assets/alphabet/5-d.png';
+import img6 from '../../assets/alphabet/6-e.png';
+import img7 from '../../assets/alphabet/7-s.png';
+import img8 from '../../assets/alphabet/8-i.png';
+import img9 from '../../assets/alphabet/9-g.png';
+import img10 from '../../assets/alphabet/10-n.png';
+import img11 from '../../assets/alphabet/11-l.png';
+import img12 from '../../assets/alphabet/12-a.png';
 
 const IMAGES = [
-  { src: 'https://picsum.photos/582/451', alt: 'Image 1' },
-  { src: 'https://picsum.photos/582/576', alt: 'Image 2' },
-  { src: 'https://picsum.photos/770/587', alt: 'Image 3' },
-  { src: 'https://picsum.photos/768/433', alt: 'Image 4' },
-  { src: 'https://picsum.photos/728/528', alt: 'Image 5' },
-  { src: 'https://picsum.photos/456/489', alt: 'Image 6' },
-  { src: 'https://picsum.photos/572/419', alt: 'Image 7' },
-  { src: 'https://picsum.photos/715/403', alt: 'Image 8' },
-  { src: 'https://picsum.photos/703/500', alt: 'Image 9' },
-  { src: 'https://picsum.photos/629/511', alt: 'Image 10' },
-  { src: 'https://picsum.photos/659/467', alt: 'Image 11' },
-  { src: 'https://picsum.photos/622/560', alt: 'Image 12' },
+  { src: img1, alt: 'V' },
+  { src: img2, alt: 'I' },
+  { src: img3, alt: 'B' },
+  { src: img4, alt: 'E' },
+  { src: img5, alt: 'D' },
+  { src: img6, alt: 'E' },
+  { src: img7, alt: 'S' },
+  { src: img8, alt: 'I' },
+  { src: img9, alt: 'G' },
+  { src: img10, alt: 'N' },
+  { src: img11, alt: 'L' },
+  { src: img12, alt: 'A' },
 ];
 
 const meta = {

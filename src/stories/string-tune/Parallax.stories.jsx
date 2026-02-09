@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { Parallax } from '../../components/string-tune';
 import './string-tune.css';
+import img2 from '../../assets/alphabet/2-i.png';
 
 const meta = {
   title: 'StringTune/Basic/Parallax',
@@ -30,7 +31,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img2;
 
 export const Default = {
   args: {

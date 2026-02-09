@@ -1,6 +1,5 @@
 import { MagneticCard } from '../../components/string-tune/recipes/MagneticCard.jsx';
-
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+import IMAGE_URL from '../../assets/alphabet/7-s.png';
 
 const meta = {
   title: 'StringTune/Recipes/MagneticCard',

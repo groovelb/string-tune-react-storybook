@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { Lerp } from '../../components/string-tune';
 import './string-tune.css';
+import img6 from '../../assets/alphabet/6-e.png';
 
 const meta = {
   title: 'StringTune/Basic/Lerp',
@@ -26,7 +27,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img6;
 
 export const Default = {
   args: {},

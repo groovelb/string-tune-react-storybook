@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { Glide } from '../../components/string-tune';
 import './string-tune.css';
+import img8 from '../../assets/alphabet/8-i.png';
 
 const meta = {
   title: 'StringTune/Basic/Glide',
@@ -30,7 +31,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img8;
 
 export const Default = {
   args: {

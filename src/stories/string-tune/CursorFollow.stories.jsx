@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { CursorFollow } from '../../components/string-tune';
 import './string-tune.css';
+import img3 from '../../assets/alphabet/3-b.png';
 
 const meta = {
   title: 'StringTune/Basic/CursorFollow',
@@ -38,7 +39,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img3;
 
 export const Default = {
   args: {

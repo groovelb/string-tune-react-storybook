@@ -1,6 +1,5 @@
 import { ParallaxImage } from '../../components/string-tune/recipes/ParallaxImage.jsx';
-
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+import IMAGE_URL from '../../assets/alphabet/9-g.png';
 
 const meta = {
   title: 'StringTune/Recipes/ParallaxImage',

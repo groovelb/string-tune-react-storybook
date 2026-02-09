@@ -1,6 +1,5 @@
 import { ImpulseCard } from '../../components/string-tune/recipes/ImpulseCard.jsx';
-
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+import IMAGE_URL from '../../assets/alphabet/1-v.png';
 
 const meta = {
   title: 'StringTune/Recipes/ImpulseCard',

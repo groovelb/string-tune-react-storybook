@@ -1,6 +1,5 @@
 import { SpotlightCard } from '../../components/string-tune/recipes/SpotlightCard.jsx';
-
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+import IMAGE_URL from '../../assets/alphabet/3-b.png';
 
 const meta = {
   title: 'StringTune/Recipes/SpotlightCard',

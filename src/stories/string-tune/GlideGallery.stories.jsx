@@ -1,11 +1,17 @@
 import { GlideGallery } from '../../components/string-tune/recipes/GlideGallery.jsx';
+import img1 from '../../assets/alphabet/1-v.png';
+import img2 from '../../assets/alphabet/2-i.png';
+import img3 from '../../assets/alphabet/3-b.png';
+import img4 from '../../assets/alphabet/4-e.png';
+import img5 from '../../assets/alphabet/5-d.png';
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
-
-const DEFAULT_IMAGES = Array.from({ length: 5 }, (_, i) => ({
-  src: IMAGE_URL,
-  alt: `Image ${i + 1}`,
-}));
+const DEFAULT_IMAGES = [
+  { src: img1, alt: 'V' },
+  { src: img2, alt: 'I' },
+  { src: img3, alt: 'B' },
+  { src: img4, alt: 'E' },
+  { src: img5, alt: 'D' },
+];
 
 const meta = {
   title: 'StringTune/Recipes/GlideGallery',
@@ -66,7 +72,15 @@ export const Default = {
 
 export const SevenColumns = {
   args: {
-    images: Array.from({ length: 7 }, (_, i) => ({ src: IMAGE_URL, alt: `Image ${i + 1}` })),
+    images: [
+      { src: img1, alt: 'V' },
+      { src: img2, alt: 'I' },
+      { src: img3, alt: 'B' },
+      { src: img4, alt: 'E' },
+      { src: img5, alt: 'D' },
+      { src: img1, alt: 'V' },
+      { src: img2, alt: 'I' },
+    ],
     columns: 7,
     gap: '6px',
     height: '50vh',

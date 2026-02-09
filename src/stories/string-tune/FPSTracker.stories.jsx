@@ -1,8 +1,7 @@
 // Storybook imports handled by framework
 import { StringTuneProvider } from '../../components/string-tune';
 import './string-tune.css';
-
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+import IMAGE_URL from '../../assets/alphabet/5-d.png';
 
 /**
  * FPS Tracker Demo (basic/tutorial-14)

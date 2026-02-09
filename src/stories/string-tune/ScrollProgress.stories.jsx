@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { ScrollProgress } from '../../components/string-tune';
 import './string-tune.css';
+import img12 from '../../assets/alphabet/12-a.png';
 
 const meta = {
   title: 'StringTune/Basic/ScrollProgress',
@@ -36,7 +37,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img12;
 
 export const Default = {
   args: {

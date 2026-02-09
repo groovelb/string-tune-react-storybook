@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { Sequence, SequenceContainer } from '../../components/string-tune';
 import './string-tune.css';
+import img13 from '../../assets/alphabet/13-b.png';
 
 const meta = {
   title: 'StringTune/Basic/Sequence',
@@ -38,7 +39,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img13;
 
 // VILNIUS SVG path
 const VilniusSvg = () => (

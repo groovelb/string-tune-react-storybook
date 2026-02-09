@@ -1,6 +1,7 @@
 // Storybook imports handled by framework
 import { Magnetic } from '../../components/string-tune';
 import './string-tune.css';
+import img4 from '../../assets/alphabet/4-e.png';
 
 const meta = {
   title: 'StringTune/Basic/Magnetic',
@@ -34,7 +35,7 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = 'https://string-tune.fiddle.digital/images/tutorials/tutorial-image.jpg';
+const IMAGE_URL = img4;
 
 export const Default = {
   args: {
