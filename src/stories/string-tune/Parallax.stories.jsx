@@ -1,7 +1,10 @@
 // Storybook imports handled by framework
 import { Parallax } from '../../components/string-tune';
 import './string-tune.css';
+import img1 from '../../assets/alphabet/1-v.png';
 import img2 from '../../assets/alphabet/2-i.png';
+import img3 from '../../assets/alphabet/3-b.png';
+import img4 from '../../assets/alphabet/4-e.png';
 
 const meta = {
   title: 'StringTune/Basic/Parallax',
@@ -31,8 +34,6 @@ const meta = {
 
 export default meta;
 
-const IMAGE_URL = img2;
-
 export const Default = {
   args: {
     speed: 0.75,
@@ -42,11 +43,11 @@ export const Default = {
       <span className="note">(Disabled on mobile devices)</span>
 
       <figure className="image-bg">
-        <img src={IMAGE_URL} alt="StringTune" />
+        <img src={img1} alt="V" />
       </figure>
 
       <Parallax as="figure" className="image-1" speed={0.75}>
-        <img src={IMAGE_URL} alt="StringTune" />
+        <img src={img2} alt="I" />
       </Parallax>
 
       <Parallax as="h1" className="title line-1" speed={-0.1}>
@@ -56,13 +57,25 @@ export const Default = {
       <Parallax as="h1" className="title line-2" speed={0.1}>
         String
       </Parallax>
+
+      <Parallax as="figure" className="image-2" speed={0.4}>
+        <img src={img3} alt="B" />
+      </Parallax>
+
+      <Parallax as="h1" className="title line-3" speed={-0.2}>
+        Tune
+      </Parallax>
+
+      <Parallax as="figure" className="image-3" speed={-0.3}>
+        <img src={img4} alt="E" />
+      </Parallax>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          '배경 이미지 위에 전경 이미지와 "Thought/String" 텍스트가 각각 다른 패럴랙스 속도로 배치됩니다. 스크롤하면 레이어가 다른 속도로 움직이는 깊이감을 확인하세요.',
+          '배경 포함 4개 이미지와 3개 텍스트가 각각 다른 패럴랙스 속도로 배치됩니다. 스크롤하면 레이어가 다른 속도로 움직이는 깊이감을 확인하세요.',
       },
     },
   },
