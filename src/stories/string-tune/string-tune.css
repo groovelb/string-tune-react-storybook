@@ -2407,8 +2407,8 @@
 .masonry-demo-wrapper .control-group > span {
   display: block;
   margin-bottom: var(--mm);
-  color: #f4c7a7;
-  border-bottom: 2px solid #f4c7a740;
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff40;
 }
 
 .masonry-demo-wrapper .button-group {
@@ -2431,7 +2431,7 @@
 
 .masonry-demo-wrapper .button-group button.-active {
   background-color: var(--c-black);
-  color: #f4c7a7;
+  color: #ffffff;
 }
 
 .masonry-demo-wrapper .checkbox-wrap {
@@ -2450,7 +2450,7 @@
 }
 
 .masonry-demo-wrapper .checkbox-wrap input:checked ~ label {
-  color: #f4c7a7;
+  color: #ffffff;
   opacity: 1;
 }
 
@@ -2482,7 +2482,7 @@
 
 .masonry-demo-wrapper .masonry-item span {
   display: block;
-  color: #f4c7a7;
+  color: #ffffff;
   margin-top: var(--g-gap);
   opacity: 1;
   transition: opacity 0.3s ease;
