@@ -15,6 +15,7 @@ import {
   StringSequence,
   StringFPSTracker,
   StringPositionTracker,
+  StringMasonry,
 } from '@fiddle-digital/string-tune';
 
 const StringTuneContext = createContext({
@@ -37,6 +38,7 @@ const MODULE_MAP = {
   sequence: StringSequence,
   fpsTracker: StringFPSTracker,
   positionTracker: StringPositionTracker,
+  masonry: StringMasonry,
 };
 
 const ALL_MODULES = Object.keys(MODULE_MAP);
@@ -45,7 +47,7 @@ const ALL_MODULES = Object.keys(MODULE_MAP);
  * StringTune Provider
  * @param {Object} props
  * @param {React.ReactNode} props.children
- * @param {Array<'lazy'|'parallax'|'progress'|'lerp'|'glide'|'cursor'|'magnetic'|'spotlight'|'impulse'|'split'|'form'|'sequence'|'fpsTracker'|'positionTracker'>} [props.modules]
+ * @param {Array<'lazy'|'parallax'|'progress'|'lerp'|'glide'|'cursor'|'magnetic'|'spotlight'|'impulse'|'split'|'form'|'sequence'|'fpsTracker'|'positionTracker'|'masonry'>} [props.modules]
  * @param {boolean} [props.debug=false]
  * @param {boolean} [props.fpsTrackerVisible=false]
  * @param {boolean} [props.positionTrackerVisible=false]

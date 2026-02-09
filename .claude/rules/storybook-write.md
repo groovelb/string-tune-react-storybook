@@ -23,11 +23,23 @@
 - **layout**: `'fullscreen'` (필수)
 - **특징**: `scroll-demo-wrapper` 구조 필요
 
+## title 네이밍 규칙 (필수)
+
+`StringTune/{카테고리}/{컴포넌트명}` 형식을 따른다:
+
+| 원본 폴더 | Storybook 카테고리 | 예시 |
+|-----------|-------------------|------|
+| `basic/` | `StringTune/Basic/` | `StringTune/Basic/Magnetic` |
+| `advanced/` | `StringTune/Advanced/` | `StringTune/Advanced/ProgressSlice` |
+| `typography/` | `StringTune/Typography/` | `StringTune/Typography/TextWithProgress` |
+| `layouts/` | `StringTune/Layouts/` | `StringTune/Layouts/FooterShifting` |
+| `specials/` | `StringTune/Specials/` | `StringTune/Specials/XmasTree` |
+
 ## 필수 설정
 
 ```tsx
 const meta = {
-  title: 'StringTune/ComponentName',
+  title: 'StringTune/Basic/ComponentName',  // 카테고리 포함 필수
   component: ComponentName,
   tags: ['autodocs'],  // 필수: Docs 자동 생성
   parameters: {

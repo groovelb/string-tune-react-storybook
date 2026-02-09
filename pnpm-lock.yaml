@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fiddle-digital/string-tune':
-        specifier: ^1.1.46
-        version: 1.1.46
+        specifier: ^1.1.49
+        version: 1.1.49
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -335,8 +335,8 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fiddle-digital/string-tune@1.1.46':
-    resolution: {integrity: sha512-neTZXViKEZGzSYrEuMRC/wvfuuuWQwRnpDxM6VTRkoHvXxmdNY4y0N1aVqnJis2EFFdagK78fiMOH3yQMDT9BA==}
+  '@fiddle-digital/string-tune@1.1.49':
+    resolution: {integrity: sha512-5eVfJ5o+rDnUOV4KrzfXj3fbQjHb6323qSxXd4USddBVSFyoOjykZNeRm9QlWabsYZuKWeK8gsoVEAYHxUmr1Q==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1962,7 +1962,7 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@fiddle-digital/string-tune@1.1.46': {}
+  '@fiddle-digital/string-tune@1.1.49': {}
 
   '@humanfs/core@0.19.1': {}
 

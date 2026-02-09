@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StringTune : Tutorial : Masonry Grid — Orchestrated</title>
+    <script src="https://unpkg.com/@fiddle-digital/string-tune@1.1.49/dist/index.js"></script>
+    <style>
+@property --progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-angle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spotlight-distance {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --vh: 1vh;
+  --vw: 1vw;
+  --c-white: #ffffff;
+  --c-black: #000000;
+  --c-black-rgb: 0, 0, 0;
+  --c-grey-dark: #333333;
+  --c-grey-dark-rgba: 51, 51, 51;
+  --c-grey: #999999;
+  --c-red: #FF5A37;
+
+  --easing-function: cubic-bezier(0.86, 0, 0.31, 1);
+  --easing-function-2: cubic-bezier(0.35, 0.35, 0, 1);
+  --easing-timing: 1.5s;
+
+  --g-gap: 0.4rem;
+  --g-margin: calc(var(--g-gap) * 2);
+
+  --mm: 0.64rem;
+  --m: 0.8rem;
+  --p: 1rem;
+  --h6: 1.25rem;
+  --h5: 1.563rem;
+  --h4: 1.953rem;
+  --h3: 2.441rem;
+  --h2: 3.052rem;
+  --h1: 3.815rem;
+  --h0: 5.065rem;
+  --large: max(6.331rem, 18vw);
+  
+}
+@media (min-width: 1024px) {
+  :root {
+    --g-margin: calc(var(--g-gap) * 4);
+  }
+}
+
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.25;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #808080;
+  color: black;
+}
+.-w {
+  margin-left: var(--g-margin);
+  margin-right: var(--g-margin);
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+body {
+  min-height: 100lvh;
+}
+.note {
+  color: var(--c-white);
+}
+svg {
+  display: block;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+  display: block;
+  touch-action: manipulation;
+  color: var(--c-white);
+}
+
+h1,
+h2,
+h3,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+}
+.-lrg {
+  font-size: var(--large);
+}
+.-h0 {
+  font-size: var(--h0);
+}
+h1, .-h1 {
+  font-size: var(--h1);
+}
+h2, .-h2 {
+  font-size: var(--h2);
+}
+h3, .-h3 {
+  font-size: var(--h3);
+}
+h4, .-h4 {
+  font-size: var(--h4);
+}
+h5, .-h5 {
+  font-size: var(--h5);
+}
+h6, .-h6 {
+  font-size: var(--h6);
+}
+.-p {
+  font-size: var(--p);
+}
+.-m {
+  font-size: var(--m);
+}
+.-mm {
+  font-size: var(--mm);
+}
+@media (max-width: 1600px) {
+  .-mid-lrg {
+    font-size: var(--large);
+  }
+  .-mid-h0 {
+    font-size: var(--h0);
+  }
+  .-mid-h1 {
+    font-size: var(--h1);
+  }
+  .-mid-h2 {
+    font-size: var(--h2);
+  }
+  .-mid-h3 {
+    font-size: var(--h3);
+  }
+  .-mid-h4 {
+    font-size: var(--h4);
+  }
+  .-mid-h5 {
+    font-size: var(--h5);
+  }
+  .-mid-h6 {
+    font-size: var(--h6);
+  }
+  .-mid-p {
+    font-size: var(--p);
+  }
+  .-mid-m {
+    font-size: var(--m);
+  }
+  .-mid-mm {
+    font-size: var(--mm);
+  }
+}
+
+@media (max-width: 1024px) {
+  .-m-lrg {
+    font-size: var(--large);
+  }
+  .-m-h0 {
+    font-size: var(--h0);
+  }
+  .-m-h1 {
+    font-size: var(--h1);
+  }
+  .-m-h2 {
+    font-size: var(--h2);
+  }
+  .-m-h3 {
+    font-size: var(--h3);
+  }
+  .-m-h4 {
+    font-size: var(--h4);
+  }
+  .-m-h5 {
+    font-size: var(--h5);
+  }
+  .-m-h6 {
+    font-size: var(--h6);
+  }
+  .-m-p {
+    font-size: var(--p);
+  }
+  .-m-m {
+    font-size: var(--m);
+  }
+  .-m-mm {
+    font-size: var(--mm);
+  }
+}
+
+.-up {
+  text-transform: uppercase;
+}
+.-tac {
+  text-align: center;
+}
+
+.-splitted {
+  display: flex;
+  flex-wrap: wrap;
+
+  .-s-line {
+    display: flex;
+    will-change: contents;
+  }
+  .-s-word {
+    display: inline-flex;
+    will-change: contents;
+  }
+  .-s-char {
+    display: inline-flex;
+    will-change: contents;
+  }
+}
+
+.-w {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: var(--g-gap);
+  align-items: start;
+  /* padding-top: calc( var(--h6) * 2 ); */
+  padding-bottom: calc(var(--h1) * 2);
+}
+
+.controls {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  display: flex;
+  justify-content: center;
+  gap: var(--g-gap);
+
+  position: sticky;
+  z-index: 10;
+  top: calc(var(--h6) * 5);
+}
+
+.control-group {
+  padding: var(--g-gap) calc(var(--g-gap) * 2) var(--g-gap) var(--g-gap);
+  border-radius: var(--mm);
+  background-color: rgba(var(--c-black-rgb), 0.6);
+  background-image: linear-gradient(0deg, rgba(var(--c-grey-dark-rgb), 0.2));
+  backdrop-filter: blur(1rem);
+  border: 1px solid rgba(var(--c-grey-dark-rgb), 0.4);
+
+  box-shadow: 0 1rem 2rem rgba(var(--c-black-rgb), 0.4);
+}
+.control-group > span {
+  display: block;
+  margin-bottom: var(--mm);
+  color: #f4c7a7;
+  border-bottom: 2px solid #f4c7a740;
+}
+
+.button-group {
+  display: flex;
+  gap: calc(var(--g-gap) / 2);
+  padding: 0.1rem;
+  background-color: rgba(var(--c-grey-dark-rgb), 1);
+  border-radius: calc(var(--mm) - var(--g-gap) + 0.05rem);
+}
+.button-group button {
+  padding: 0.05rem var(--g-gap);
+  /* background-color: rgba( var(--c-grey-dark-rgb),0.2 ); */
+  border-radius: calc(var(--mm) - var(--g-gap));
+}
+.button-group button.-active {
+  background-color: var(--c-black);
+  color: #f4c7a7;
+}
+
+.checkbox-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.checkbox-wrap label {
+  padding: 0.1rem 0;
+  margin-left: var(--g-gap);
+  color: var(--c-white);
+  transform: translateZ(0);
+  opacity: 0.4;
+  transition: opacity 0.6s var(--f-cubic), color 0.6s var(--f-cubic);
+}
+.checkbox-wrap input:checked ~ label {
+  color: #f4c7a7;
+  opacity: 1;
+}
+
+.masonry-grid {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 2;
+  margin-top: calc(var(--h1) * 2);
+  position: relative;
+}
+.masonry-item {
+  padding-bottom: var(--mm);
+  will-change: transform, width, height;
+}
+
+.masonry-item figure {
+  width: 100%;
+  height: 100%;
+}
+.masonry-item figure img {
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0);
+  object-fit: cover;
+}
+.masonry-item span {
+  display: block;
+  color: #f4c7a7;
+  margin-top: var(--g-gap);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .button-group button.-not-on-m {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .-w {
+    grid-template-columns: repeat(14, 1fr);
+  }
+  .controls {
+    grid-column-start: 4;
+    grid-column-end: 12;
+  }
+
+  .masonry-grid {
+    grid-column-start: 3;
+    grid-column-end: 13;
+  }
+  .masonry-grid span {
+    transform: translateZ(0);
+    opacity: 1;
+    transition: opacity 1.5s var(--easing-function-2);
+  }
+}
+</style>
+</head>
+
+  <body>
+  <script>
+    const stringTune = StringTune.StringTune.getInstance();
+    window.StringTuneContext = stringTune;
+      stringTune.use(StringTune.StringLazy);
+  stringTune.use(StringTune.StringMasonry);
+
+    stringTune.start(0);
+  </script>
+    <div class="-w">
+
+  <nav class="controls">
+    <div class="control-group">
+      <span class="-mm -up">Columns</span>
+      <div class="button-group" id="col-controls">
+        <button class="-m" data-cols="3">3</button>
+        <button class="-m" data-cols="4">4</button>
+        <button class="-m" data-cols="5">5</button>
+        <button class="-m -not-on-m" data-cols="6">6</button>
+        <button class="-m -not-on-m" data-cols="7">7</button>
+        <button class="-m -not-on-m" data-cols="8">8</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="-mm -up">Mode</span>
+      <div class="button-group" id="mode-controls">
+        <button class="-m" data-mode="auto">Auto</button>
+        <button class="-m" data-mode="manual">Manual</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="-mm -up">Timing</span>
+      <div class="checkbox-wrap">
+        <input type="checkbox" id="masonry-random-timing-toggle">
+        <span class="checkbox-toggle">
+          <span></span>
+
+        </span>
+        <label class="-m" for="masonry-random-timing-toggle">Random</label>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="masonry-grid" id="masonry-grid" string-id="gallery" string="masonry"
+    string-masonry-cols="2|768:3|1024:4|1440:5" string-masonry-mode="manual"
+    string-masonry-gap="6|1024:8|1600:9|1920:10|2560:11">
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/582/451" alt="Image 1" />
+      </figure>
+      <span class="-mm">image 0</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/582/576" alt="Image 2" />
+      </figure>
+      <span class="-mm">image 1</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/770/587" alt="Image 3" />
+      </figure>
+      <span class="-mm">image 2</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/768/433" alt="Image 4" />
+      </figure>
+      <span class="-mm">image 3</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/728/528" alt="Image 5" />
+      </figure>
+      <span class="-mm">image 4</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/456/489" alt="Image 6" />
+      </figure>
+      <span class="-mm">image 5</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/572/419" alt="Image 7" />
+      </figure>
+      <span class="-mm">image 6</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/715/403" alt="Image 8" />
+      </figure>
+      <span class="-mm">image 7</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/703/500" alt="Image 9" />
+      </figure>
+      <span class="-mm">image 8</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/629/511" alt="Image 10" />
+      </figure>
+      <span class="-mm">image 9</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/659/467" alt="Image 11" />
+      </figure>
+      <span class="-mm">image 10</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/622/560" alt="Image 12" />
+      </figure>
+      <span class="-mm">image 11</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/522/514" alt="Image 13" />
+      </figure>
+      <span class="-mm">image 12</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/540/553" alt="Image 14" />
+      </figure>
+      <span class="-mm">image 13</span>
+    </div>
+
+    <div class="masonry-item" string-masonry-position-time="1200"
+      string-masonry-position-easing="cubic-bezier(0.69, 0, 0, 1)" string-masonry-size-time="1200"
+      string-masonry-size-easing="cubic-bezier(0.69, 0, 0, 1)">
+      <figure>
+        <img string="lazy" string-lazy="https://picsum.photos/726/577" alt="Image 15" />
+      </figure>
+      <span class="-mm">image 14</span>
+    </div>
+
+  </div>
+
+</div>
+  </body>
+</html>
+
+
+  <script>
+setTimeout(() => {
+  const grid = document.getElementById('masonry-grid');
+  const colButtons = document.querySelectorAll('#col-controls button');
+  const modeButtons = document.querySelectorAll('#mode-controls button');
+  const stringTune = window.StringTuneContext;
+
+  const fixedSpeed = 1200;
+  const randomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  const setActive = (buttons, value, attr) => {
+    buttons.forEach((btn) => {
+      if (btn.getAttribute(attr) == value) {
+        btn.classList.add('-active');
+      } else {
+        btn.classList.remove('-active');
+      }
+    });
+  };
+
+  colButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cols = parseInt(btn.getAttribute('data-cols'));
+      setActive(colButtons, cols, 'data-cols');
+      if (stringTune) {
+        stringTune.emit('masonry:update:gallery', { cols: cols });
+      }
+    });
+  });
+
+  modeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mode = btn.getAttribute('data-mode');
+      setActive(modeButtons, mode, 'data-mode');
+      if (grid) {
+        grid.setAttribute('string-masonry-mode', mode);
+      }
+      if (stringTune) {
+        stringTune.emit('masonry:update:gallery', { mode: mode });
+      }
+    });
+  });
+
+  const timingCheckbox = document.getElementById('masonry-random-timing-toggle');
+
+  const updateTiming = () => {
+    const isRandom = timingCheckbox?.checked;
+    const items = document.querySelectorAll('.masonry-item');
+
+    items.forEach((item, i) => {
+      let duration = fixedSpeed.toString();
+      if (isRandom) {
+        const randomSpeed = randomNumber(1200, 3000);
+        duration = randomSpeed.toString();
+      }
+
+      item.setAttribute('string-masonry-position-time', duration);
+      item.setAttribute('string-masonry-size-time', duration);
+    });
+
+    if (stringTune) {
+      stringTune.emit('masonry:update:gallery', {});
+    }
+  };
+
+  stringTune.on('masonry:shuffle:start', () => {
+    document.getElementById('masonry-grid').classList.add('shuffling');
+  });
+  stringTune.on('masonry:shuffle:end', () => {
+    document.getElementById('masonry-grid').classList.remove('shuffling');
+    // setTimeout(() => {
+    //   stringTune.scrollTo(0);
+    // }, 30);
+  });
+
+  if (timingCheckbox) {
+    timingCheckbox.checked = false;
+    timingCheckbox.disabled = false;
+    timingCheckbox.addEventListener('change', updateTiming);
+    updateTiming();
+  }
+
+  setActive(colButtons, '3', 'data-cols');
+  setActive(modeButtons, 'manual', 'data-mode');
+
+  
+  stringTune.emit('masonry:update:gallery', { cols: 3 });
+
+  if (grid) {
+    grid.setAttribute('string-masonry-mode', 'manual');
+  }
+}, 3);
+
+</script>
+</body>
+
+</html>

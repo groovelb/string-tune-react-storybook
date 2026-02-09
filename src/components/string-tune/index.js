@@ -11,3 +11,4 @@ export { Impulse } from './interactive/Impulse.jsx';
 export { Sequence, SequenceContainer } from './interactive/Sequence.jsx';
 export { SplitText } from './text/SplitText.jsx';
 export { FormField } from './form/FormField.jsx';
+export { Masonry, MasonryItem } from './layouts/Masonry.jsx';
