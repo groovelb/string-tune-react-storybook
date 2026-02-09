@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
-import { Masonry, MasonryItem, useStringTune } from '../../components/string-tune';
+import { useEffect, useRef } from 'react';
+import { StringTune } from '@fiddle-digital/string-tune';
+import { Masonry } from '../../components/string-tune';
 import './string-tune.css';
 
 const IMAGES = [
@@ -23,12 +24,6 @@ const IMAGES = [
 const FIXED_SPEED = 1200;
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-/**
- * Masonry Orchestrated Demo (layouts/tutorial-02)
- *
- * Interactive masonry grid with controls for columns, mode, and timing.
- * Uses StringMasonry module with event emission for dynamic grid updates.
- */
 const meta = {
   title: 'StringTune/Layouts/MasonryOrchestrated',
   component: Masonry,
@@ -37,7 +32,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Interactive **Masonry** grid layout with controls for column count, layout mode (auto/manual), and random timing. Uses `StringMasonry` module with `masonry:update` events for dynamic grid reconfiguration.',
+          'Interactive **Masonry** grid layout with controls for column count, layout mode (auto/manual), and random timing.',
       },
     },
   },
@@ -56,123 +51,162 @@ const meta = {
       description: '반응형 간격 설정 (breakpoint:gap, | 구분)',
       control: { type: 'text' },
     },
-    stringId: {
-      description: 'StringTune 인스턴스 ID (이벤트 타겟)',
-      control: { type: 'text' },
-    },
   },
 };
 
 export default meta;
 
-function MasonryOrchestratedRecipe({ cols, mode, gap, stringId }) {
-  const { instance } = useStringTune();
-  const [activeCols, setActiveCols] = useState(3);
-  const [activeMode, setActiveMode] = useState(mode);
-  const [randomTiming, setRandomTiming] = useState(false);
-  const [itemTimings, setItemTimings] = useState(
-    () => IMAGES.map(() => FIXED_SPEED)
-  );
+/**
+ * 원본 HTML 데모와 동일한 DOM을 useRef + setAttribute로 직접 생성.
+ * React의 속성 변환을 거치지 않음.
+ */
+function MasonryOrchestratedRecipe({ cols, mode, gap }) {
+  const wrapperRef = useRef(null);
 
-  const colOptions = [3, 4, 5, 6, 7, 8];
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-  const handleColChange = useCallback((colCount) => {
-    setActiveCols(colCount);
-    if (instance) {
-      instance.emit(`masonry:update:${stringId}`, { cols: colCount });
-    }
-  }, [instance, stringId]);
+    // 그리드에 string-* 속성 직접 설정
+    const grid = wrapper.querySelector('.masonry-grid');
+    grid.setAttribute('string', 'masonry');
+    grid.setAttribute('string-id', 'gallery');
+    grid.setAttribute('string-masonry-cols', cols);
+    grid.setAttribute('string-masonry-mode', mode);
+    grid.setAttribute('string-masonry-gap', gap);
 
-  const handleModeChange = useCallback((newMode) => {
-    setActiveMode(newMode);
-    if (instance) {
-      instance.emit(`masonry:update:${stringId}`, { mode: newMode });
-    }
-  }, [instance, stringId]);
+    // 각 아이템에 속성 직접 설정
+    const items = grid.querySelectorAll('.masonry-item');
+    items.forEach((item) => {
+      item.setAttribute('string-masonry-position-time', '1200');
+      item.setAttribute('string-masonry-position-easing', 'cubic-bezier(0.69, 0, 0, 1)');
+      item.setAttribute('string-masonry-size-time', '1200');
+      item.setAttribute('string-masonry-size-easing', 'cubic-bezier(0.69, 0, 0, 1)');
+    });
 
-  const handleTimingToggle = useCallback((checked) => {
-    setRandomTiming(checked);
-    const newTimings = IMAGES.map(() =>
-      checked ? randomNumber(1200, 3000) : FIXED_SPEED
-    );
-    setItemTimings(newTimings);
-    if (instance) {
-      instance.emit(`masonry:update:${stringId}`, {});
-    }
-  }, [instance, stringId]);
+    // 각 이미지에 lazy 속성 직접 설정
+    const imgs = grid.querySelectorAll('img[data-lazy-src]');
+    imgs.forEach((img) => {
+      const src = img.getAttribute('data-lazy-src');
+      img.removeAttribute('data-lazy-src');
+      img.setAttribute('string', 'lazy');
+      img.setAttribute('string-lazy', src);
+    });
+
+    // Provider 초기화 대기
+    const timer = setTimeout(() => {
+      const stringTune = StringTune.getInstance();
+      const colControls = wrapper.querySelector('#col-controls');
+      const modeControls = wrapper.querySelector('#mode-controls');
+      const timingCheckbox = wrapper.querySelector('#masonry-random-timing-toggle');
+
+      const colButtons = colControls.querySelectorAll('button');
+      const modeButtons = modeControls.querySelectorAll('button');
+
+      const setActive = (buttons, value, attr) => {
+        buttons.forEach((btn) => {
+          if (btn.getAttribute(attr) == value) {
+            btn.classList.add('-active');
+          } else {
+            btn.classList.remove('-active');
+          }
+        });
+      };
+
+      colButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const colCount = parseInt(btn.getAttribute('data-cols'));
+          setActive(colButtons, colCount, 'data-cols');
+          stringTune.emit('masonry:update:gallery', { cols: colCount });
+        });
+      });
+
+      modeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const modeVal = btn.getAttribute('data-mode');
+          setActive(modeButtons, modeVal, 'data-mode');
+          grid.setAttribute('string-masonry-mode', modeVal);
+          stringTune.emit('masonry:update:gallery', { mode: modeVal });
+        });
+      });
+
+      const updateTiming = () => {
+        const isRandom = timingCheckbox?.checked;
+        items.forEach((item) => {
+          const duration = isRandom
+            ? randomNumber(1200, 3000).toString()
+            : FIXED_SPEED.toString();
+          item.setAttribute('string-masonry-position-time', duration);
+          item.setAttribute('string-masonry-size-time', duration);
+        });
+        stringTune.emit('masonry:update:gallery', {});
+      };
+
+      stringTune.on('masonry:shuffle:start', () => {
+        grid.classList.add('shuffling');
+      });
+      stringTune.on('masonry:shuffle:end', () => {
+        grid.classList.remove('shuffling');
+      });
+
+      if (timingCheckbox) {
+        timingCheckbox.checked = false;
+        timingCheckbox.disabled = false;
+        timingCheckbox.addEventListener('change', updateTiming);
+        updateTiming();
+      }
+
+      setActive(colButtons, '3', 'data-cols');
+      setActive(modeButtons, 'manual', 'data-mode');
+      stringTune.emit('masonry:update:gallery', { cols: 3 });
+      grid.setAttribute('string-masonry-mode', 'manual');
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [cols, mode, gap]);
 
   return (
-    <div className="masonry-demo-wrapper">
+    <div className="masonry-demo-wrapper" ref={wrapperRef}>
       <div className="-w">
         <nav className="controls">
           <div className="control-group">
             <span className="-mm -up">Columns</span>
-            <div className="button-group">
-              {colOptions.map((col) => (
-                <button
-                  key={col}
-                  className={`-m${activeCols === col ? ' -active' : ''}${col > 5 ? ' -not-on-m' : ''}`}
-                  onClick={() => handleColChange(col)}
-                >
-                  {col}
-                </button>
-              ))}
+            <div className="button-group" id="col-controls">
+              <button className="-m" data-cols="3">3</button>
+              <button className="-m" data-cols="4">4</button>
+              <button className="-m" data-cols="5">5</button>
+              <button className="-m -not-on-m" data-cols="6">6</button>
+              <button className="-m -not-on-m" data-cols="7">7</button>
+              <button className="-m -not-on-m" data-cols="8">8</button>
             </div>
           </div>
           <div className="control-group">
             <span className="-mm -up">Mode</span>
-            <div className="button-group">
-              {['auto', 'manual'].map((m) => (
-                <button
-                  key={m}
-                  className={`-m${activeMode === m ? ' -active' : ''}`}
-                  onClick={() => handleModeChange(m)}
-                >
-                  {m.charAt(0).toUpperCase() + m.slice(1)}
-                </button>
-              ))}
+            <div className="button-group" id="mode-controls">
+              <button className="-m" data-mode="auto">Auto</button>
+              <button className="-m" data-mode="manual">Manual</button>
             </div>
           </div>
           <div className="control-group">
             <span className="-mm -up">Timing</span>
             <div className="checkbox-wrap">
-              <input
-                type="checkbox"
-                id="masonry-random-timing-toggle"
-                checked={randomTiming}
-                onChange={(e) => handleTimingToggle(e.target.checked)}
-              />
+              <input type="checkbox" id="masonry-random-timing-toggle" />
               <span className="checkbox-toggle"><span></span></span>
               <label className="-m" htmlFor="masonry-random-timing-toggle">Random</label>
             </div>
           </div>
         </nav>
 
-        <Masonry
-          className="masonry-grid"
-          cols={cols}
-          mode={activeMode}
-          gap={gap}
-          stringId={stringId}
-        >
+        <div className="masonry-grid" id="masonry-grid">
           {IMAGES.map((img, i) => (
-            <MasonryItem
-              key={i}
-              className="masonry-item"
-              positionTime={itemTimings[i]}
-              sizeTime={itemTimings[i]}
-            >
+            <div key={i} className="masonry-item">
               <figure>
-                <img
-                  data-string="lazy"
-                  data-string-lazy={img.src}
-                  alt={img.alt}
-                />
+                <img data-lazy-src={img.src} alt={img.alt} />
               </figure>
               <span className="-mm">image {i}</span>
-            </MasonryItem>
+            </div>
           ))}
-        </Masonry>
+        </div>
       </div>
     </div>
   );
@@ -183,7 +217,6 @@ export const Default = {
     cols: '2|768:3|1024:4|1440:5',
     mode: 'manual',
     gap: '6|1024:8|1600:9|1920:10|2560:11',
-    stringId: 'gallery',
   },
   render: (args) => <MasonryOrchestratedRecipe {...args} />,
   parameters: {

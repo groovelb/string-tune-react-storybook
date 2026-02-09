@@ -24,8 +24,10 @@
   --vw: 1vw;
   --c-white: #ffffff;
   --c-black: #000000;
+  --c-black-rgb: 0, 0, 0;
   --c-grey-dark: #333333;
   --c-grey-dark-rgb: 51, 51, 51;
+  --c-grey-dark-rgba: 51, 51, 51;
   --c-grey: #999999;
   --c-red: #FF5A37;
   --c-yellow: #ffd23f;
@@ -2336,6 +2338,33 @@
 /* ==========================================
    14. Masonry Orchestrated Demo
    ========================================== */
+
+.masonry-demo-wrapper,
+.masonry-demo-wrapper *,
+.masonry-demo-wrapper *::before,
+.masonry-demo-wrapper *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.masonry-demo-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.masonry-demo-wrapper button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  display: block;
+  touch-action: manipulation;
+  color: var(--c-white);
+}
 
 .masonry-demo-wrapper {
   background-color: #808080;
