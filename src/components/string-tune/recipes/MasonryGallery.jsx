@@ -100,15 +100,6 @@ export function MasonryGallery({
       item.setAttribute('string-masonry-size-easing', 'cubic-bezier(0.69, 0, 0, 1)');
     });
 
-    // lazy 속성 설정
-    const imgs = grid.querySelectorAll('img[data-lazy-src]');
-    imgs.forEach((img) => {
-      const src = img.getAttribute('data-lazy-src');
-      img.removeAttribute('data-lazy-src');
-      img.setAttribute('string', 'lazy');
-      img.setAttribute('string-lazy', src);
-    });
-
     // 초기화 대기 후 컨트롤 바인딩
     setTimeout(() => {
       const stringTune = StringTune.getInstance();
@@ -196,7 +187,7 @@ export function MasonryGallery({
         {images.map((img, i) => (
           <div key={i} className="st-mg-item">
             <figure>
-              <img data-lazy-src={img.src} alt={img.alt || `Image ${i + 1}`} />
+              <img src={img.src} alt={img.alt || `Image ${i + 1}`} />
             </figure>
             <span>image {i}</span>
           </div>

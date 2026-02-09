@@ -38,8 +38,7 @@ const GridImages = () => (
       {Array.from({ length: 16 }, (_, i) => (
         <figure key={i} className={`image-${i + 1}`}>
           <img
-            data-string="lazy"
-            data-string-lazy={IMAGE_URL}
+            src={IMAGE_URL}
             alt="StringTune"
           />
         </figure>
@@ -51,7 +50,7 @@ const GridImages = () => (
 export const Default = {
   args: {
     fpsTrackerVisible: true,
-    modules: ['lazy', 'fpsTracker'],
+    modules: ['fpsTracker'],
   },
   render: (args) => (
     <StringTuneProvider {...args}>
@@ -71,7 +70,7 @@ export const Default = {
 export const Hidden = {
   args: {
     fpsTrackerVisible: false,
-    modules: ['lazy', 'fpsTracker'],
+    modules: ['fpsTracker'],
   },
   render: (args) => (
     <StringTuneProvider {...args}>
