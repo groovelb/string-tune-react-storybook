@@ -12,3 +12,4 @@ export { Sequence, SequenceContainer } from './interactive/Sequence.jsx';
 export { SplitText } from './text/SplitText.jsx';
 export { FormField } from './form/FormField.jsx';
 export { Masonry, MasonryItem } from './layouts/Masonry.jsx';
+export { useStringTuneEvent, useStringTuneListener } from './hooks/useStringTuneEvent.js';

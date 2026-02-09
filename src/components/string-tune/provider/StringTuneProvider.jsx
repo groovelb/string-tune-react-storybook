@@ -1,4 +1,4 @@
-import { useEffect, useRef, createContext, useContext } from 'react';
+import { useEffect, useRef, useState, useCallback, createContext, useContext } from 'react';
 import {
   StringTune,
   StringLazy,
@@ -59,40 +59,43 @@ export function StringTuneProvider({
   fpsTrackerVisible = false,
   positionTrackerVisible = false,
 }) {
+  const [instance, setInstance] = useState(null);
   const instanceRef = useRef(null);
 
   useEffect(() => {
-    const instance = StringTune.getInstance();
-    instanceRef.current = instance;
+    const inst = StringTune.getInstance();
+    instanceRef.current = inst;
+    setInstance(inst);
 
     modules.forEach((moduleName) => {
       const Module = MODULE_MAP[moduleName];
       if (Module) {
-        instance.use(Module);
+        inst.use(Module);
         if (debug) {
           console.log(`[StringTune] Module registered: ${moduleName}`);
         }
       }
     });
 
-    instance.start(debug ? 1 : 0);
+    inst.start(debug ? 1 : 0);
 
     if (modules.includes('fpsTracker')) {
-      instance.FPSTrackerVisible = fpsTrackerVisible;
+      inst.FPSTrackerVisible = fpsTrackerVisible;
     }
     if (modules.includes('positionTracker')) {
-      instance.PositionTrackerVisible = positionTrackerVisible;
+      inst.PositionTrackerVisible = positionTrackerVisible;
     }
 
     if (debug) {
       console.log('[StringTune] Started with modules:', modules);
-      window.StringTuneContext = instance;
+      window.StringTuneContext = inst;
     }
 
     return () => {
       if (instanceRef.current) {
         instanceRef.current.destroy();
         instanceRef.current = null;
+        setInstance(null);
         if (debug) {
           console.log('[StringTune] Destroyed');
         }
@@ -100,14 +103,14 @@ export function StringTuneProvider({
     };
   }, [modules, debug, fpsTrackerVisible, positionTrackerVisible]);
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     if (instanceRef.current) {
       instanceRef.current.refresh();
     }
-  };
+  }, []);
 
   return (
-    <StringTuneContext.Provider value={{ instance: instanceRef.current, refresh }}>
+    <StringTuneContext.Provider value={{ instance, refresh }}>
       {children}
     </StringTuneContext.Provider>
   );
