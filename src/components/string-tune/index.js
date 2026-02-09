@@ -16,3 +16,6 @@ export { useStringTuneEvent, useStringTuneListener } from './hooks/useStringTune
 export { ScrollReveal } from './recipes/ScrollReveal.jsx';
 export { ParallaxImage } from './recipes/ParallaxImage.jsx';
 export { MagneticCard } from './recipes/MagneticCard.jsx';
+export { ParallaxGallery } from './recipes/ParallaxGallery.jsx';
+export { GlideGallery } from './recipes/GlideGallery.jsx';
+export { MasonryGallery } from './recipes/MasonryGallery.jsx';
