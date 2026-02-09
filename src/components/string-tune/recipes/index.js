@@ -1,2 +1,3 @@
-// Recipe 컴포넌트 barrel export
-// Phase 2에서 추가 예정
+export { ScrollReveal } from './ScrollReveal.jsx';
+export { ParallaxImage } from './ParallaxImage.jsx';
+export { MagneticCard } from './MagneticCard.jsx';
